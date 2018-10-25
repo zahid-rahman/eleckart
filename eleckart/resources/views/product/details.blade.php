@@ -72,9 +72,62 @@
                     <p id="simple_title"><strong>Details</strong></p>
                     <p id="description"> {{$details->product_details}}</p>
 
-                    <div class="addtocart">
-                        <div class="btn btn-success hvr-wobble-top" id="add_to_cart"> <a href="#" ><span class="glyphicon glyphicon-shopping-cart"></span> add to cart</a> </div>
-                    </div>
+                    @if(Auth::check())
+
+
+
+
+                        <form action="/cart">
+
+                            {{csrf_field()}}
+
+                            <div class="form-group">
+                                <input style="display: none" name="u_id" value="{{Auth::user()->id}}" hidden>
+
+                            </div>
+                            <div class="form-group">
+                                <input style="display: none" name="p_id" value="{{$details->product_id}}" hidden>
+                            </div>
+                            <div class="form-group">
+                                {{-- editor --}}
+                                <input style="display: none" name="t_price" value="{{$details->product_price}}" hidden>
+                            </div>
+
+                            <input type="submit" class="btn btn-success hvr-wobble-top" value="add to cart">
+
+                        </form>
+
+
+                        {{--@endif--}}
+
+
+                    @else
+                    <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                            add to cart
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title"><b>Alert</b></h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="color:#ff484a"><b>user Log in required</b></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
 
                 </div>
 

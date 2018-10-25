@@ -11,11 +11,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../css/jquery.exzoom.css">
 
-    {{--for rich text editor --}}
-    {{--<link rel="stylesheet" href="css/site.css">--}}
-    {{--<link rel="stylesheet" href="css/richtext.min.css">--}}
-
-    {{--<link rel="stylesheet" href="css/Cas.css">--}}
 
     @yield('custom-css')
 
@@ -54,18 +49,12 @@
 
                         @foreach( $categories as $item)
 
-                        <li><a href="{{route('category.products',['name'=>$item->category_name])}}">{{$item->category_name}}</a></li>
+                            <li>
+                                <a href="{{route('category.products',['name'=>$item->category_name])}}">{{$item->category_name}}</a>
+                            </li>
 
                         @endforeach
 
-
-                        {{--<li><a href="{{route('category.products')}}">category 1</a></li>--}}
-                        {{--<li><a href="#">category 2</a></li>--}}
-                        {{--<li><a href="#">category 3</a></li>--}}
-                        {{--<li role="separator" class="divider"></li>--}}
-                        {{--<li><a href="#">Separated link</a></li>--}}
-                        {{--<li role="separator" class="divider"></li>--}}
-                        {{--<li><a href="#">One more separated link</a></li>--}}
                     </ul>
                 </li>
                 <li id="nav-menu-link"><a href="#">brands</a></li>
@@ -82,24 +71,52 @@
                 </div>
                 <button type="submit" id="search" class="btn btn-danger glyphicon glyphicon-search"></button>
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li id="nav-menu-link"><a href="{{ route('login') }}">login</a></li>
-                <li id="nav-menu-link"><a href="{{ route('register') }}">register</a></li>
-                <li id="nav-menu-link"><a href="{{route('cart')}}">
-                        <span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge badge-light">4</span>
-                    </a></li>
 
-                {{--<li class="dropdown">--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                {{--<li><a href="#">Action</a></li>--}}
-                {{--<li><a href="#">Another action</a></li>--}}
-                {{--<li><a href="#">Something else here</a></li>--}}
-                {{--<li role="separator" class="divider"></li>--}}
-                {{--<li><a href="#">Separated link</a></li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-            </ul>
+            @if(Auth::check())
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li id="nav-menu-link">
+                       <p hidden>{{ $id = Auth::user()->id }}</p>
+                        <a href="{{route('cart',['id'=>$id])}}">
+
+                            <p hidden> {{$cart= DB::table('carts')->where('id',Auth::user()->id)->count()}}</p>
+                            <span class="glyphicon glyphicon-shopping-cart"></span> <span
+                                    class="badge badge-light">{{$cart}}</span>
+                        </a></li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                               href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+            @else
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="nav-menu-link"><a href="{{ route('login') }}">login</a></li>
+                    <li id="nav-menu-link"><a href="{{ route('register') }}">register</a></li>
+
+
+                </ul>
+            @endif
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

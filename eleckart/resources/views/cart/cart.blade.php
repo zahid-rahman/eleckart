@@ -1,104 +1,233 @@
-{{--@extends('layouts.default')--}}
-{{--@include('layouts.design')--}}
+@extends('layouts.default')
+@include('layouts.design')
+{{--page title--}}
+@section('title')
+    cart
+@endsection
 
-{{--@section('content1')--}}
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
-          integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+@section('content-for-other-page')
 
 
-    <script src="js/Java.js"></script>
-    <link rel="stylesheet" href="css/Cas.css">
-    {{--<link rel="stylesheet" href="custom_css/style.css">--}}
 
+    <div class="container">
+        <h1>Cart</h1>
 
-    <style>
-        .stepper-widget {
-            margin-right: 20px;
-        }
-    </style>
+        <table class="table">
 
-    <script>
-        jQuery.noConflict();
-    </script>
-
-    <script src="stepper.widget.js"></script>
-
-    <script>
-        jQuery(document).on('ready', function () {
-            jQuery('.stepper-widget').stepper();
-
-            jQuery('.stepper-widget').on('stepperupdate', function (ev, data) {
-                console.log(data.updateType);
-            });
-        });
-    </script>
-</head>
-<body>
-
-
-<div class="container">
-    <h1>Cart</h1>
-
-    <table class="table table-responsive">
-
-        <tr>
-            <th>Product</th>
-            <th style="text-align: center">Quantity</th>
-            <th>Price(BDT)</th>
-            <th>Discount</th>
-            <th>Total</th>
-            <th>remove</th>
-
-        </tr>
-
-
-        @for($i=0 ;$i<3;$i++)
             <tr>
-                <td>Product name</td>
-                <td align="center">@include('cart.add')</td>
-                <td>1000.00 BDT</td>
-                <td>No</td>
+                <th>Product</th>
+                <th style="text-align: center">change Quantity</th>
+                <th>total quantity</th>
+                <th>Price(BDT)</th>
+                <th>Discount</th>
 
-                <td>
-                    0.0 BDT
-                </td>
+                <th>remove</th>
 
-                <td>
-                    <a href="" class="btn btn-danger glyphicon glyphicon-remove"></a>
-                </td>
             </tr>
 
-        @endfor
 
-    </table>
-    <hr>
+            @foreach($cart_value as $cart_item)
+                <tr>
+                    <td>{{$cart_item->product_name}}</td>
+                    <td align="center">
+                        {{--@include('cart.add')--}}
 
-    <div class="row">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4" id="billing_section">
-            <h2>Total: 0.0 BDT</h2>
-            <a href="" class="btn btn-success hvr-wobble-top">Proceed to Checkout</a>
+
+                        @if(session()->has('outofstock'))
+
+                            <div class="alert alert-danger">
+                                {{session()->get('outofstock')}}
+                            </div>
+                        @else
+                            <form action="{{route('cart.update')}}">
+                                {{csrf_field()}}
+                                <input type="number" name="pro_qun" min="1" value="1" id="max_min_qun">
+                                <input type="text" name="price" value="{{$cart_item->product_price}}" hidden>
+
+
+                                <input type="text" name="pro_id" value="{{$cart_item->product_id}}" hidden>
+                                <input type="submit" class="hvr-wobble-top" id="price_update" value="update">
+                            </form>
+                        @endif
+
+
+                    </td>
+
+                    <td>
+                        {{$cart_item->order_quantity}}
+                    </td>
+                    <td class="pro_price">{{$cart_item->total_price}}</td>
+
+                    <td>No</td>
+
+
+                    <td>
+
+                        <form action="{{route('delete.single.cart')}}">
+                            {{csrf_field()}}
+                            <input style="display: none" name="ct_id" value="{{$cart_item->cart_id}}">
+                            <input style="display: none" name="pr_id" value="{{$cart_item->product_id}}">
+                            <button type="submit" class="btn btn-default glyphicon glyphicon-trash"></button>
+
+                        </form>
+
+                        {{--<a href="{{route('delete.single.cart',}}" ></a>--}}
+                    </td>
+                </tr>
+
+            @endforeach
+
+        </table>
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4" id="billing_section">
+                <h2>Total: {{$total_price}} BDT</h2>
+
+                @if($total_price != 0)
+
+                    {{--</form>--}}
+                    @php
+                        $id = Auth::user()->id;
+
+                    @endphp
+
+
+                    <a href="{{route('order.detials',['id'=>$id])}}" class="btn btn-success hvr-wobble-top">Procud to
+                        Checkout</a>
+
+                @else
+
+                <!-- Button trigger modal -->
+
+                    <button type="button" class="btn btn-success hvr-wobble-top" data-toggle="modal"
+                            data-target="#myModal">
+                        Procud to Checkout
+                    </button>
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title"><b>Alert</b></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color:#ff484a"><b>your cart is empty</b></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                @endif
+
+                {{--<a href="" class="btn btn-success hvr-wobble-top">Proceed to Checkout</a>--}}
+
+
+                <a href="{{route('delete.cart')}}" class="btn btn-danger hvr-wobble-top">clear the cart</a>
+            </div>
         </div>
     </div>
 
+    <script>
+        var count = 1;
+        document.getElementById("p1").value = count;
+        document.getElementById("decr").disabled = true;
 
-</div>
+        function increment() {
+            count++;
+            if (count >= 1) {
+                document.getElementById("decr").disabled = false;
+            }
+            document.getElementById("p1").value = count;
+        }
+
+        function decrement() {
+            --count;
+            if (count <= 1) {
+                document.getElementById("decr").disabled = true;
+            }
+
+            document.getElementById("p1").value = count;
+        }
+
+        function order_alert() {
+            alert('hello');
+        }
+
+    </script>
+
+    <script>
+        $(window).on("load", function () {
+
+            //  $decrementerBtn.prop('disabled', true);
+
+            $("[role='incrementer']").click(function (evt) {
+                evt.preventDefault();
+
+                $incrementerBtn = $(this);
+                $amountBox = $incrementerBtn.siblings("[role='amount']");
+                //$price = $incrementerBtn.siblings("[role='pro_price']");
+                $newVal = parseInt($amountBox.val()) + 1;
+
+
+                {{--$.ajax({--}}
+                {{--url:"{{url('/cart')}}",--}}
+                {{--method:"GET",--}}
+                {{--data:{--}}
+                {{--newval : cat_id,--}}
+                {{--qty: qty--}}
+                {{--},--}}
+                {{--success: function( data ) {--}}
+                {{--// console.log(data);--}}
+                {{--}--}}
+                {{--});--}}
+
+
+                $amountBox.val($newVal);
+
+                $decrementerBtn = $incrementerBtn.siblings("[role='decrementer']");
+
+                if ($newVal >= 1) {
+                    $decrementerBtn.prop('disabled', false);
+                }
+            });
+
+            $("[role='decrementer']").click(function (evt) {
+                evt.preventDefault();
+
+                $decrementerBtn = $(this);
+
+                $amountBox = $decrementerBtn.siblings("[role='amount']");
+                $newVal = parseInt($amountBox.val()) - 1;
+                $amountBox.val($newVal);
+
+                if ($newVal <= 1) {
+                    $decrementerBtn.prop('disabled', true);
+                }
+            });
+
+
+            $price = $(".pro_price").val()
+            console.log($newVal);
+
+
+        });
+
+
+    </script>
 
 
 
-</body>
-</html>
-{{--@endsection--}}
+
+@endsection

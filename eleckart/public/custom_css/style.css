@@ -75,12 +75,12 @@ body {
 
 /*table {*/
 
-    /*border-spacing: 20px;*/
-    /*border-collapse: separate;*/
+/*border-spacing: 20px;*/
+/*border-collapse: separate;*/
 /*}*/
 
 /*.table {*/
-    /*text-align: center;*/
+/*text-align: center;*/
 /*}*/
 
 .box {
@@ -325,7 +325,7 @@ body {
     margin-top: 30px;
 }
 
-#brand_name{
+#brand_name {
     color: #66b0ca;
 }
 
@@ -469,13 +469,14 @@ body {
 
 /*dashboard nav*/
 #total_brands {
-      width: 70%;
-      border-radius: 10px;
-      background-color: #0bcb4f;
-      background-image: linear-gradient(to right, #0bcb4f, #e8ff2c);
-      color:#ffffff;
-  }
-#total_brands p{
+    width: 70%;
+    border-radius: 10px;
+    background-color: #0bcb4f;
+    background-image: linear-gradient(to right, #0bcb4f, #e8ff2c);
+    color: #ffffff;
+}
+
+#total_brands p {
     font-size: 15px;
 }
 
@@ -484,52 +485,53 @@ body {
     border-radius: 10px;
     background-color: #3a3aff;
     background-image: linear-gradient(to right, #3a3aff, #75e4ff);
-    color:#ffffff;
-}
-#total_proudcts p{
-    font-size: 15px;
+    color: #ffffff;
 }
 
+#total_proudcts p {
+    font-size: 15px;
+}
 
 #total_comp_order {
 
 }
-#total_comp_order p{
+
+#total_comp_order p {
     font-size: 15px;
 }
-
 
 #total_revr {
     width: 70%;
     border-radius: 10px;
     background-color: #ff6242;
     background-image: linear-gradient(to right, #ff6242, #e8ff2c);
-    color:#ffffff;
+    color: #ffffff;
 }
-#total_revr p{
+
+#total_revr p {
     font-size: 15px;
 }
 
 /*products nav*/
-.glyphicon glyphicon-stop{
+.glyphicon glyphicon-stop {
     border-radius: 100%;
 }
 
-#sales_rev_title{
+#sales_rev_title {
     font-size: 30px;
 }
 
-#product_title{
+#product_title {
 
-font-size: 30px;
-
-}
-
-#add_product_btn{
+    font-size: 30px;
 
 }
 
-#product_table{
+#add_product_btn {
+
+}
+
+#product_table {
     margin-top: 50px;
 }
 
@@ -539,17 +541,41 @@ font-size: 30px;
     /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
     /*transition: 0.3s;*/
     margin-bottom: 40px;
-    padding:40px;
-    height:70%;
+    padding: 40px;
+    height: 70%;
 
 }
 
 .product_card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .product_container {
     padding: 2px 16px;
+}
+
+/*cart*/
+#max_min_qun {
+    width: 60px;
+    border-radius: 5px;
+    border: #737373 solid 1px;
+
+}
+
+#price_update {
+
+    width: 60px;
+    height: 28px;
+    border: transparent;
+    border-radius: 5px;
+    background: #ffc33b;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+#price_update:hover {
+    background: #FFA433;
+    color: #ffffff;
 }
 
 

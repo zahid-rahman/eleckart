@@ -33,7 +33,7 @@ Route::get('/product details/{id}','productController@show')->name('product.prod
 Route::get('/category/{name}','categoryController@show')->name('category.products');
 
 //cart
-Route::get('/cart','cartController@index')->name('cart');
+//
 
 
 //vendor
@@ -42,3 +42,13 @@ Route::get('/vendor/registration','vendorController@create')->name('vendor.regis
 Route::get('/vendor/products','vendorProductController@index')->name('vendor.products');
 Route::get('/vendor/brands','vendorBrandController@index')->name('vendor.brands');
 Route::get('/vendor/products/create product','vendorProductController@create')->name('vendor.product.create');
+
+//order
+Route::get('/cart','cartController@store')->name('cart.add');
+Route::get('/shopping cart/{id}','cartController@show')->name('cart');
+Route::get('/order','orderController@store')->name('order.confirm');
+Route::get('/delete cart','cartController@destroy')->name('delete.single.cart');
+Route::get('/delete full cart','cartController@delete_all')->name('delete.cart');
+Route::get('/order details/{id}','orderController@index')->name('order.detials');
+Route::get('/update cart','cartController@update')->name('cart.update');
+
