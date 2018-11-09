@@ -31,26 +31,20 @@
                     <td>{{$cart_item->product_name}}</td>
                     <td align="center">
                         {{--@include('cart.add')--}}
-
-
-                        @if(session()->has('outofstock'))
-
-                            <div class="alert alert-danger">
-                                {{session()->get('outofstock')}}
-                            </div>
-                        @else
                             <form action="{{route('cart.update')}}">
                                 {{csrf_field()}}
-                                <input type="number" name="pro_qun" min="1" value="1" id="max_min_qun">
-                                <input type="text" name="price" value="{{$cart_item->product_price}}" hidden>
 
-
-                                <input type="text" name="pro_id" value="{{$cart_item->product_id}}" hidden>
-                                <input type="submit" class="hvr-wobble-top" id="price_update" value="update">
-                            </form>
-                        @endif
-
-
+                                <div class="amount_container" serial="1">
+                                    <button class="plus" role="incrementer">+</button>
+                                    <input class="quantity" name="pro_qun" type="text" role="amount" value="{{$cart_item->order_quantity}}" readonly/>
+                                    <button  class="minus" role="decrementer">-</button>
+                                    <input type="text" name="price" value="{{$cart_item->product_price}}" hidden>
+                                    <input type="text" name="pro_id" value="{{$cart_item->product_id}}" hidden>
+                                    <input type="submit" class="hvr-wobble-top" id="price_update" value="update">
+                                </div>
+                                {{-- <input type="number" name="pro_qun" min="1" value="1" id="max_min_qun"> --}}
+                    
+                            </form>                     
                     </td>
 
                     <td>

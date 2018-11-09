@@ -109,9 +109,9 @@ class cartController extends Controller
 
             }
 
-            DB::table('products')
-                ->where('product_id',$request->p_id)
-                ->update($update_qun);
+//            DB::table('products')
+//                ->where('product_id',$request->p_id)
+//                ->update($update_qun);
 
 
 
@@ -178,35 +178,47 @@ class cartController extends Controller
         $total_price = $quantity * $price;
 
 
-        $check = DB::table('products')
-            ->where('product_id',$request->pro_id)
-            ->get();
+        // $check = DB::table('products')
+        //     ->where('product_id',$request->pro_id)
+        //     ->get();
 
-        $valid=0;
-        foreach ($check as $validation){
-            if($quantity > $validation && $quantity > 0) {
-                $valid++;
-            }
+        // $valid=0;
+        // foreach ($check as $validation){
+        //     if($quantity > $validation && $quantity > 0) {
+        //         $valid++;
+        //     }
 
-        }
+        // }
 
-        if($valid == 0){
-
+      
 
             //dd($total_price);
+            //dd($request->pro_qun);
 
             $update_price =[
-                'order_quantity'=>$quantity,
-                'total_price' => $total_price
+                'order_quantity'=> $quantity,
+                'total_price' =>  $total_price
             ];
 
             DB::table('carts')
                 ->where('product_id',$request->pro_id)
                 ->update($update_price);
-        }else{
-            session()->flash('outofstock', 'product is out of stock ');
-        }
 
+            // $product_quantity = DB::table('products')
+            // ->where('product_id',$request->pro_id) 
+            // ->pluck('product_quantity')
+            // ->first();
+            
+            // $total_product = $product_quantity - $quantity;
+
+            // $stock = [    
+            //     'product_quantity'=> $total_product
+            // ];  
+            
+            // DB::table('products')
+            // ->where('product_id',$request->pro_id)
+            // ->update($stock);
+       
         return redirect()->back();
 
 
@@ -233,6 +245,13 @@ class cartController extends Controller
             ->where('product_id', $request->pr_id)
             ->delete();
 
+
+        // $ordered_quantity = DB::table('carts')
+        //     ->where('product_id',$request->pr_id)
+        //     ->pluck('order_quantity')
+        //     ->first();    
+        
+            
 
         return redirect()->back();
 

@@ -86,10 +86,7 @@
         <input type="submit" class="btn btn-success hvr-wobble-top" value="Confirm order"
                data-toggle="modal" data-target="#myModal">
 
-
-
         {{--greeting configuration with modal--}}
-
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -115,12 +112,8 @@
 
     </form>
 
-
-
     <br>
-    <br>
-    <a href="" class="btn btn-danger">cancle order</a>
-
+    <a href="{{route('order.delete',['id'=>Auth::user()->id])}}" class="btn btn-danger hvr-wobble-top">cancle order</a>
 </div>
 
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\order;
 use App\cart;
@@ -127,14 +129,6 @@ class orderController extends Controller
 
         }
 
-
-
-
-
-
-        // dd($request->pro_id);
-
-
         cart::query()->delete();
         return redirect('/');
 
@@ -150,6 +144,14 @@ class orderController extends Controller
     public function show($id)
     {
         //
+
+        $customer_order = DB::table('orders')
+            ->where('id',$id)
+            ->get();
+
+        return view('order.customer_order')
+            ->with('cust_order',$customer_order);
+
     }
 
     /**
@@ -184,5 +186,12 @@ class orderController extends Controller
     public function destroy($id)
     {
         //
+
+        cart::query()->delete();
+
+
+
+        return redirect()->route('cart',$id);
+
     }
 }

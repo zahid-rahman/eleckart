@@ -17,12 +17,14 @@ class CreateProductsTable extends Migration
             $table->increments('product_id');
             $table->string('product_name');
             $table->text('product_details');
+            $table->string('product_thumbnail');
             $table->integer('product_quantity');
             $table->string('product_visiblity');
             $table->double('product_price',8, 2);
-            $table->integer('offer_id');
+            $table->integer('discount');
             $table->integer('brand_id');
             $table->integer('category_id');
+            $table->integer('id');
             $table->timestamps();
         });
     }

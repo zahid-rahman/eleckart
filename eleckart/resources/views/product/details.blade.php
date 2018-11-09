@@ -72,12 +72,12 @@
                     <p id="simple_title"><strong>Details</strong></p>
                     <p id="description"> {{$details->product_details}}</p>
 
-                    @if(Auth::check())
+                    @if(Auth::check() && Auth::user()->role == "user")
 
 
 
 
-                        <form action="/cart">
+                        <form action="{{route('cart.add')}}">
 
                             {{csrf_field()}}
 
@@ -103,7 +103,7 @@
 
                     @else
                     <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-success hvr-wobble-top" data-toggle="modal" data-target="#myModal">
                             add to cart
                         </button>
 

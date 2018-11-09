@@ -15,9 +15,9 @@
     <div class="row">
         <div class="col-sm-3">
             <ul id="vendor-navigation" class="nav nav-piles">
-                <li><a class="btn btn-success" href="{{route('vendor.dashboard')}}">Dashboard</a></li>
-                <li><a class="btn btn-success" href="{{route('vendor.products')}}">Product</a></li>
-                <li><a class="btn btn-success" href="{{route('vendor.brands')}}">Brands</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.products')}}">Product</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.brands')}}">Brands</a></li>
 
             </ul>
         </div>

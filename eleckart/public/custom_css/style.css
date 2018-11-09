@@ -166,29 +166,7 @@ body {
     text-align: center;
 }
 
-/*categories*/
-.btn-primary {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0px;
-    margin-left: 120px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
+
 
 .button {
     display: inline-block;
@@ -460,7 +438,7 @@ body {
 }
 
 #vendor-navigation li a:hover {
-    background: #14642d;
+    background: #286090;
 }
 
 #container {
@@ -564,13 +542,14 @@ body {
 
 #price_update {
 
-    width: 60px;
-    height: 28px;
+    /* width: 60px;
+    height: 28px; */
     border: transparent;
     border-radius: 5px;
     background: #ffc33b;
     font-size: 14px;
     color: #ffffff;
+    padding:5px 10px 5px 10px;
 }
 
 #price_update:hover {
@@ -579,5 +558,78 @@ body {
 }
 
 
+/* cart  */
+.plus{
+    background:#66c85b; 
+    border-radius: 5px;
+    border:transparent;
+    padding:5px 10px 5px 10px;
+    color:#ffffff;
+    cursor: pointer;
+ }
+
+ .minus{
+    background:#f04f4f; 
+    border-radius: 5px;
+    border:transparent;
+    padding:5px 10px 5px 10px;
+    color:#ffffff;
+    cursor: pointer;
+ }
+
+ .quantity{
+     border-radius: 5px;
+     border:transparent;
+     padding:5px 10px 5px 10px;
+     width:40px;
+     text-align: center;
+     background: #d3d3d3;
+ }
+
+#brand_names{
+    border: transparent;
+    border-radius: 5px;
+    background:#d7d7d7;
+    width:10%
+}
+ #brands:hover{
+    
+    background: #113adf;
+    color:#ffffff;
+    border-radius: 5px;
+    
+ }
+
+ #exampleInputFile{
+     background:#cacaca;
+     
+ }
+
+ #custom_upload{
+    padding: 10px;
+    background:rgba(0, 162, 255, 0.966); 
+    display: table;
+    color: #fff;
+    border:transparent;
+    border-radius: 5px;
+    cursor: pointer;
+     }
+
+#custom_upload:hover{
+    
+    background:rgba(0, 119, 255, 0.966); 
+    display: table;
+
+   
+}
 
 
+
+ input[type="file"] {
+    display: none;
+} 
+
+
+#product_details{
+    height: 30%;
+}

@@ -15,9 +15,9 @@
     <div class="row">
         <div class="col-sm-3">
             <ul id="vendor-navigation" class="nav nav-piles">
-                <li><a class="btn btn-success" href="{{route('vendor.dashboard')}}">Dashboard</a></li>
-                <li><a class="btn btn-success" href="{{route('vendor.products')}}">Product</a></li>
-                <li><a class="btn btn-success" href="{{route('vendor.brands')}}">Brands</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.products')}}">Product</a></li>
+                <li><a class="btn btn-primary" href="{{route('vendor.brands')}}">Brands</a></li>
 
             </ul>
         </div>
@@ -49,12 +49,23 @@
                         <td><strong>actions</strong></td>
                     </tr>
 
-                    @for($i=0;$i<4;$i++)
+
+                  {{-- {{dd($pro)}}   --}}
+                  @foreach($pro as $item)
+
                         <tr>
-                            <td>Xiaomi A2</td>
-                            <td>14000 BDT</td>
-                            <td>10</td>
-                            <td><span class="glyphicon glyphicon-stop" style="color: #1ec842;border-radius:100%"></span>
+                            <td>{{$item->product_name}}</td>
+                        <td>{{$item->product_price}}</td>
+                        <td>{{$item->product_quantity}}</td>
+                            <td>
+                                @if($item->product_visiblity == "online")
+                                <span class="glyphicon glyphicon-stop" style="color: #1ec842;border-radius:100%"></span>
+                                @elseif($item->product_visiblity == "offline")
+                                <span class="glyphicon glyphicon-stop" style="color: #ff463c"></span>
+
+
+                                @endif
+                                
                             </td>
                             <td>
 
@@ -64,21 +75,11 @@
 
                             </td>
                         </tr>
-                    @endfor
 
-                    <tr>
-                        <td>Xiaomi A2</td>
-                        <td>14000 BDT</td>
-                        <td>10</td>
-                        <td><span class="glyphicon glyphicon-stop" style="color: #ff463c"></span></td>
-                        <td>
 
-                            <a href=""> <span class="glyphicon glyphicon-trash" style="color:#a7a7a7"></span></a>
-                            ||
-                            <a href=""><span class="glyphicon glyphicon-pencil" style="color:#a7a7a7"></span></a>
-
-                        </td>
-                    </tr>
+                        @endforeach
+                
+                   
 
                 </table>
 

@@ -72,25 +72,33 @@
                 <button type="submit" id="search" class="btn btn-danger glyphicon glyphicon-search"></button>
             </form>
 
-            @if(Auth::check())
+            @if(Auth::check() && Auth::user()->role == "user")
 
                 <ul class="nav navbar-nav navbar-right">
 
                     <li id="nav-menu-link">
-                       <p hidden>{{ $id = Auth::user()->id }}</p>
+                        <p hidden>{{ $id = Auth::user()->id }}</p>
                         <a href="{{route('cart',['id'=>$id])}}">
 
                             <p hidden> {{$cart= DB::table('carts')->where('id',Auth::user()->id)->count()}}</p>
                             <span class="glyphicon glyphicon-shopping-cart"></span> <span
                                     class="badge badge-light">{{$cart}}</span>
-                        </a></li>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @php
+                          $id = Auth::user()->id;
+                        @endphp
+
+                        <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{route('order.customer',['id'=>$id])}}" class="dropdown-item btn btn-link" style="text-decoration: none" >
+                                my orders
+                            </a>
                             <a class="dropdown-item btn btn-link" style="text-decoration: none"
                                href="{{ route('logout') }}"
                                onclick="event.preventDefault();
@@ -107,13 +115,68 @@
 
                 </ul>
 
-            @else
+            @elseif(Auth::check() && Auth::user()->role == "vendor")
+                {{--<ul class="nav navbar-nav navbar-right">--}}
+                {{--<li id="nav-menu-link"><a href="{{ route('vendor.dashboard') }}">{{Auth::user()->email}}</a></li>--}}
 
+                {{--</ul>--}}
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                               href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">dashboard</a>
+                            <br>
+                            <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                               href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+            @elseif(Auth::check() && Auth::user()->role == "admin")
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item btn btn-link" style="text-decoration: none" href="{{route('admin')}}">dashboard</a>
+                            {{--<br>--}}
+                            <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                               href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+
+            @else
                 <ul class="nav navbar-nav navbar-right">
                     <li id="nav-menu-link"><a href="{{ route('login') }}">login</a></li>
                     <li id="nav-menu-link"><a href="{{ route('register') }}">register</a></li>
-
-
                 </ul>
             @endif
 
@@ -190,54 +253,6 @@
 
 </div>
 
-{{--view categories--}}
-<div class="category">
-    <div class="container">
-        {{--title--}}
-        <div class="row">
-            <div class="col-sm-12">
-                @yield('content11')
-            </div>
-        </div>
-        {{--content--}}
-        <div class="row">
-            <div class="col-sm-3">
-                @yield('content12')
-            </div>
-            <div class="col-sm-3">
-                @yield('content13')
-            </div>
-            <div class="col-sm-3">
-                @yield('content14')
-            </div>
-
-            <div class="col-sm-3">
-                @yield('content15')
-            </div>
-            <br>
-            <br>
-
-            {{--load button--}}
-            <div class="load-button">
-                <div class="row">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-
-                        @yield('content16')
-                    </div>
-                    <div class="col-sm-4"></div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <br>
-        <br>
-
-
-    </div>
-</div>
 
 
 {{--services--}}

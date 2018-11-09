@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\vendorRequest;
-use Illuminate\Support\Facades\Hash;
 
-class vendorController extends Controller
+class adminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +15,7 @@ class vendorController extends Controller
     {
         //
 
-
+        return view('admin.dashboard');
     }
 
     /**
@@ -29,8 +26,6 @@ class vendorController extends Controller
     public function create()
     {
         //
-
-        return view('vendor.register');
     }
 
     /**
@@ -39,37 +34,9 @@ class vendorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(vendorRequest $request)
+    public function store(Request $request)
     {
         //
-
-        $user = [
-            'name'=>$request->v_com_name,
-            'email'=>$request->email,
-            'phone_number'=>$request->v_phone,
-            'address'=>$request->v_address,
-            'password'=>Hash::make($request->v_pass),
-            'role'=>$request->v_role
-        ];
-
-        DB::table('users')->insert($user);
-
-
-        $vendor = [
-            'com_name'=>$request->v_com_name,
-            'email'=>$request->email,
-            'phone_number'=>$request->v_phone,
-            'address'=>$request->v_address,
-            'password'=>$request->v_pass,
-            'role'=>$request->v_role,
-            'approval'=>'pending'
-        ];
-
-        DB::table('vendors')->insert($vendor);
-
-        return redirect()->route('homepage');
-
-
     }
 
     /**
