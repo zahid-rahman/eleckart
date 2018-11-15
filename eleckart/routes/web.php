@@ -38,6 +38,8 @@ Route::get('/order details/{id}','orderController@index')->name('order.detials')
 Route::get('/update cart','cartController@update')->name('cart.update');
 Route::get('/order delete/{id}','orderController@destroy')->name('order.delete');
 Route::get('/customer order/{id}','orderController@show')->name('order.customer');
+Route::get('/customer order info/{token}','orderController@orderInfo')->name('order.customer.info');
+
 
 
 //categories
@@ -75,6 +77,11 @@ Route::group(['middleware' => ['auth','vendor']], function () {
     Route::get('/vendor/brands','vendorBrandController@index')->name('vendor.brands');
     Route::get('/vendor/products/create product','vendorProductController@create')->name('vendor.product.create');
     Route::post('/vendor/add product','vendorProductController@store')->name('vendor.product.add');
+    //Route::get('/vendor/product image/{id}','vendorProductController@showProductImageUploadPage')->name('vendor.product.image');
+    Route::post('/vendor/upload image','vendorProductController@storeMultipleProductImage')->name('vendor.product.image.upload');
+    Route::get('/vendor/delete product/{id}','vendorProductController@destroy')->name('vendor.product.delete');
+    Route::get('/vendor/edit product/{id}','vendorProductController@edit')->name('vendor.product.edit');
+    Route::post('/vendor/update product/{id}','vendorProductController@update')->name('vendor.product.update');
     
 });
 

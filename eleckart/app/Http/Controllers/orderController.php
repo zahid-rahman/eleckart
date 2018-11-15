@@ -10,10 +10,24 @@ use App\order;
 use App\cart;
 use App\order_info;
 
-$GLOBALS['token'] = str_shuffle(md5(rand(0, 4)));
+//$GLOBALS['token'] = str_shuffle(md5(rand(0, 4),5));
+$GLOBALS['token'] = substr(md5(microtime()),rand(0,26),5);
 
 class orderController extends Controller
 {
+
+    public function orderInfo($token){
+
+        $customer_ordered_product_details = DB::table('order_infos')
+        ->join('products','products.product_id','=','order_infos.product_id')
+        ->where('order_token_number',$token)
+        ->get();
+
+
+        return view('order.order_info')
+        ->with('orederd_product_info',$customer_ordered_product_details);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,13 +55,19 @@ class orderController extends Controller
 
         $ordered_product = DB::table('products')
             ->join('carts', 'products.product_id', '=', 'carts.product_id')
-            ->where('id', $id)
+            ->where('carts.id', $id)
             ->get();
 
 
         $total_price = DB::table('carts')
             ->where('id', $id)
             ->sum('total_price');
+
+
+            // $customer_specific_ordered_product_details = DB::table('order_infos')
+            // ->where('id',$id)
+            // ->where('token_number')
+            // ->get();
 
 
         return view('order.order_details')
@@ -103,8 +123,14 @@ class orderController extends Controller
 
         $order->save();
 
+        $cart = DB::table('carts')->where('id',$request->us_id)->get();
 
-        $order_info = new order_info();
+        //dd($cart);
+      
+        
+        
+
+
 
 
 //                $order_info->product_id = $value->product_id;
@@ -115,19 +141,37 @@ class orderController extends Controller
 
         $order = DB::table('carts')
             ->join('products', 'products.product_id', '=', 'carts.product_id')
-            ->where('id', $request->us_id)
+            ->where('carts.id', $request->us_id)
             ->get();
 
-        foreach ($order as $key=>$value) {
-            $data = [
-                'product_id' => $value->product_id,
-               'id' => $request->us_id,
-              'order_validation_id' => 1
-             ];
+            //dd($order); 
 
-            DB::table('order_infos')->insert($data);
+                 
+            $order_info = new order_info();
 
-        }
+
+            foreach($order as $product){
+                //dd($product);
+                // $order_info->product_id = $product->product_id;
+                // $order_info->id = $request->us_id;
+                // $order_info->order_validation_id = $GLOBALS['token'];
+    
+                // $order_info->save();
+    
+    
+                $data = [
+                    'product_id'=>$product->product_id,
+                    'id'=>$request->us_id,
+                    'order_token_number'=>$GLOBALS['token'],
+                    'ordered_product_quantity'=>$product->order_quantity
+                ]; 
+                DB::table('order_infos')->insert($data);
+    
+    
+            }
+           
+
+       
 
         cart::query()->delete();
         return redirect('/');
@@ -188,8 +232,6 @@ class orderController extends Controller
         //
 
         cart::query()->delete();
-
-
 
         return redirect()->route('cart',$id);
 

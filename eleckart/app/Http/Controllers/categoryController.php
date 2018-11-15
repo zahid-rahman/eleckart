@@ -57,6 +57,7 @@ class categoryController extends Controller
         $product_categories = DB::table('products')
         ->join('categories','products.category_id','=','categories.category_id')
         ->where('categories.category_name','=',$name)
+        ->Where('products.product_visiblity','=',$visiblity)
         ->get();
 
         $total_product = DB::table('products')

@@ -17,7 +17,8 @@ class CreateOrderInfosTable extends Migration
             $table->increments('order_info_id');
             $table->integer('product_id');
             $table->integer('id');
-            $table->string('order_validation_id');
+            $table->string('order_token_number');
+            $table->integer('ordered_product_quantity');
             $table->timestamps();
         });
     }

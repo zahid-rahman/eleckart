@@ -102,12 +102,14 @@ class cartController extends Controller
 
             $cart->save();
 
-            $qun = DB::table('products')->where('product_id',$request->p_id)->get();
-            $update_qun = 0;
-            foreach($qun as $v){
-                $update_qun = $v->product_quantity - 1;
+            // $qun = DB::table('products')->where('product_id',$request->p_id)->get();
+            // $update_qun = 0;
+            // foreach($qun as $v){
+            //     $update_qun = $v->product_quantity - 1;
 
-            }
+            // }
+       
+
 
 //            DB::table('products')
 //                ->where('product_id',$request->p_id)
@@ -135,7 +137,7 @@ class cartController extends Controller
 
         $cart = DB::table('carts')
             ->join('products', 'products.product_id', '=', 'carts.product_id')
-            ->where('id', $id)
+            ->where('carts.id', $id)
             ->get();
 
         $cart_total_price = DB::table('carts')
