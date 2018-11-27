@@ -2,10 +2,10 @@
 @include('layouts.design')
 
 @section('title')
-    Admin-Order
+    Admin-product delete
 @endsection
 
-@section('content1')
+@section('content-for-other-page')
     
 
 
@@ -25,33 +25,37 @@
                                 <li><a class="btn btn-primary" href="">Notifications</a></li>
                                 <li><a class="btn btn-primary" href="">reports</a></li>
 
+
                         </ul>
                     </div>
             
                     <div class="col-sm-9">
                         <div id="container">
-            
-                                <div class="panel-group">
-                                        <div class="panel panel-default">
-                                          <div class="panel-heading">
-                                              <strong><h2>Order Shipping</h2></strong>
-                                            </div>
-                                            <div class="panel-body">
+                                @foreach($data as $product_datas)
+                               
+                                            <div class="panel panel-default">
+                                         
+                                                    <div class="panel-body">
+        
+                                                     
+                                                      <h2>{{$product_datas->product_name}}</h2>
+                                                      <p color="red">wanna delete this product ?</p>
+        
+                                                            <form action="{{route('admin.product.delete',['id'=>$product_datas->product_id])}}" method="post">
+                                                                {{-- <input type="text" name="v_a_id" value="{{$product_datas->vendor_id}}" hidden> --}}
+                                                                <button type="submit" class="btn btn-success">yes</button>
+                                                                <a href="{{route('admin.product')}}" class="btn btn-danger">no</a>    
+                                                            </form>
+        
+                          
+                                                     
+                                                    </div>
+                                                       
+                                                </div>
+    
 
-                                               <p>Press yes button for changing status to shipping</p>
-                                               
-
-                                               <form action="{{route('admin.order.shipping',['token'=>$token])}}" method="post">
-                                                   <input type="submit" class="btn btn-success" value="yes">
-                                                    <a href="{{route('admin.orderdeliver')}}" class="btn btn-danger">no</a>
-                                               </form>
-                                                    
-                                            
-                                            
-                                            </div>
-                                        </div>
             
-                         
+                                @endforeach
             
                         </div>
             
@@ -60,8 +64,7 @@
                 </div>
     </div>
 
-
-
+ 
    
 
 @endsection

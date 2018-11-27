@@ -2,7 +2,7 @@
 @include('layouts.design')
 
 @section('title')
-    Admin-Order
+    Admin-clailmed order
 @endsection
 
 @section('content1')
@@ -35,7 +35,7 @@
                                         <div class="panel panel-default">
                                           <div class="panel-heading">
                                               <div class="container">
-                                                    <strong><h2>Shipping Order</h2></strong>
+                                                    <strong><h2>Claimed Order</h2></strong>
                                               </div>
                                             </div>
                                             <div class="panel-body">
@@ -57,8 +57,8 @@
                                                             <tr align="center">
                                                                     <td> {{$loop->index+1}}</td>
                                                                     <td> {{$item->name}}</td>
-                                                                    @if($item->status == "shipping")
-                                                                        <td><p style="color:tomato">{{$item->token_number}}</p></td>
+                                                                    @if($item->status == "claimed")
+                                                                        <td><p style="color:#cc0000">{{$item->token_number}}</p></td>
                                                                     @elseif($item->status == "delivered")
                                                                         <td><p style="color:green">{{$item->token_number}}</p></td>
                                                                     @endif
@@ -68,10 +68,8 @@
                                                                     <td>
                                                                             
                                                                     <a href=" {{route('admin.order.confirm.edit',['token'=>$item->token_number])}}" class="btn btn-primary hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="delivery order confirmation"><span class="glyphicon glyphicon-ok-sign hvr-wobble-top"  ></a>  
-                                                                        <a href="{{route('admin.claimed.order.edit',['token'=>$item->token_number])}}" class="btn btn-danger hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="stopping order from shipping and send back to claimed section"> <span class="glyphicon glyphicon-alert hvr-wobble-top"  ></a>
-                                                                            
                                                                         {{-- <a href="{{route('admin.order.delete.edit',['token'=>$item->token_number])}}" class="btn btn-danger hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="cancle order"> <span class="glyphicon glyphicon-remove-sign hvr-wobble-top"  ></span></a>  --}}
-                                                                        {{-- <a href="" class="btn btn-warning hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="stopping order shipping"> <span class="glyphicon glyphicon-exclamation-sign hvr-wobble-top"  ></a> --}}
+                                                                        {{-- <a href="{{route('admin.order.delete.edit',['token'=>$item->token_number])}}" class="btn btn-warning hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="stopping order shipping"> <span class="glyphicon glyphicon-alerthvr-wobble-top"  ></a> --}}
                                                                     </td>
                                                               
                                                                 </tr>

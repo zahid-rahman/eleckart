@@ -13,16 +13,17 @@
             <div class="row">
                     <div class="col-sm-3">
                         <ul id="vendor-navigation" class="nav nav-piles">
-                            <li><a class="btn btn-primary" href="{{route('admin')}}">Dashboard</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.vendor')}}">Vendors</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.order')}}">shipping order</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.orderdeliver')}}">delivered order</a></li>
-                            <li><a class="btn btn-primary" href="">product</a></li>
-                            <li><a class="btn btn-primary" href="">customer</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.categories')}}">categories</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.brands')}}">brands</a></li>
-                            <li><a class="btn btn-primary" href="">Notifications</a></li>
-                            <li><a class="btn btn-primary" href="">reports</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin')}}">Dashboard</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.vendor')}}">Vendors</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.order')}}">shipping order</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.orderdeliver')}}">delivered order</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.claimed.order')}}">claimed order</a></li>                               
+                                <li><a class="btn btn-primary" href="{{route('admin.product')}}">product</a></li>
+                                <li><a class="btn btn-primary" href="">customer</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.categories')}}">categories</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.brands')}}">brands</a></li>
+                                <li><a class="btn btn-primary" href="">Notifications</a></li>
+                                <li><a class="btn btn-primary" href="">reports</a></li>
 
 
 
@@ -44,6 +45,7 @@
                                                     {{ csrf_field() }}
                                                     <form action="{{route('admin.vendor.ban',['email'=>$vendor_datas->email])}}" method="post">
                                                         <button type="submit" class="btn btn-success">yes</button>
+                                                    <input type="text" value="{{$vendor_datas->id}}" name="v_id" hidden>
                                                         <a href="{{route('admin.vendor')}}" class="btn btn-danger">no</a>    
                                                     </form> 
 
@@ -64,6 +66,7 @@
     
                                                         <form action="{{route('admin.vendor.approve',['email'=>$vendor_datas->email])}}" method="post">
                                                             {{ csrf_field() }}
+                                                    <input type="text" value="{{$vendor_datas->id}}" name="v_id" hidden>
                                                             
                                                             <button type="submit" class="btn btn-success">yes</button>
                                                             <a href="{{route('admin.vendor')}}" class="btn btn-danger">no</a>    

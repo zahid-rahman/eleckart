@@ -51,7 +51,7 @@
                                          
                             
                                             <table class="table" id="product_table">
-                                                <tr>
+                                                <tr align="center">
                                                     <td><strong>product name</strong></td>
                                                     <td><strong>product price</strong></td>
                                                     <td><strong>product in stock</strong></td>
@@ -66,15 +66,17 @@
                                               {{-- {{dd($pro)}}   --}}
                                               @foreach($pro as $item)
                             
-                                                    <tr>
+                                                    <tr align="center">
                                                         <td>{{$item->product_name}}</td>
                                                     <td>{{$item->product_price}}</td>
                                                     <td>{{$item->product_quantity}}</td>
                                                         <td>
                                                             @if($item->product_visiblity == "online")
-                                                            <span class="glyphicon glyphicon-stop" style="color: #1ec842;border-radius:100%"></span>
+                                                            <span id="dot-online"></span>
+                                                            {{-- <span class="glyphicon glyphicon-stop" style="color: #1ec842;border-radius:100%"></span> --}}
                                                             @elseif($item->product_visiblity == "offline")
-                                                            <span class="glyphicon glyphicon-stop" style="color: #ff463c"></span>
+                                                            <span id="dot-offline"></span>
+                                                            {{-- <span class="glyphicon glyphicon-stop" style="color: #ff463c"></span> --}}
                             
                                                             @endif
 

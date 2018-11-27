@@ -63,8 +63,8 @@
            @if($item->product_visiblity == "online")
                <div class="col-sm-4 product_card">
 
-                   <a href="{{route('product.product-detials',['id'=>$item->product_id])}}"><img
-                               src="{{$item->product_thumbnail}}" alt="Avatar" style="width:100%">
+                   <a href="{{route('product.product-detials',['id'=>$item->product_id])}}">
+                    <img src="{{$item->product_thumbnail}}" alt="Avatar" style="height:70%;width:50%">
                    </a>
                    <h4><b>{{$item->product_name}}</b></h4>
                    <p>price : {{$item->product_price}} BDT</p>

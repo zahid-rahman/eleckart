@@ -13,18 +13,17 @@
             <div class="row">
                     <div class="col-sm-3">
                         <ul id="vendor-navigation" class="nav nav-piles">
-                            <li><a class="btn btn-primary" href="{{route('admin')}}">Dashboard</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.vendor')}}">Vendors</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.order')}}">shipping order</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.orderdeliver')}}">delivered order</a></li>
-                            <li><a class="btn btn-primary" href="">product</a></li>
-                            <li><a class="btn btn-primary" href="">customer</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.categories')}}">categories</a></li>
-                            <li><a class="btn btn-primary" href="{{route('admin.brands')}}">brands</a></li>
-                            <li><a class="btn btn-primary" href="">Notifications</a></li>
-                            <li><a class="btn btn-primary" href="">reports</a></li>
-
-            
+                                <li><a class="btn btn-primary" href="{{route('admin')}}">Dashboard</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.vendor')}}">Vendors</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.order')}}">shipping order</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.orderdeliver')}}">delivered order</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.claimed.order')}}">claimed order</a></li>                               
+                                <li><a class="btn btn-primary" href="{{route('admin.product')}}">product</a></li>
+                                <li><a class="btn btn-primary" href="">customer</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.categories')}}">categories</a></li>
+                                <li><a class="btn btn-primary" href="{{route('admin.brands')}}">brands</a></li>
+                                <li><a class="btn btn-primary" href="">Notifications</a></li>
+                                <li><a class="btn btn-primary" href="">reports</a></li>
                         </ul>
                     </div>
             

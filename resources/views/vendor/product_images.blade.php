@@ -47,8 +47,18 @@
                 {{-- <a href="{{$product_images->product_image}}" target="_blank"> --}}
                         <label id="custom_update"> 
                                 {{-- <span class="glyphicon glyphicon-pencil" style="color:##ffffff;padding:10px 10px 10px 10px" ></span> --}}
-                                <img src="{{$product_images->product_image}}" alt="" height="50%" width="40%" >
-                                <input type="file" name="u_pro_img" id="exampleInputFile"  size="60" >
+                                {{-- <img src="{{$product_images->product_image}}" alt="" height="50%" width="40%" > --}}
+
+                                {{-- <div id="profile-container">
+                                        <image id="profileImage" src="{{$product_images->product_image}}" />
+                                     </div>
+                                <input type="file" name="u_pro_img" id="exampleInputFile"  size="60"  required="" capture> --}}
+                                     <div id="profile-container">
+                                        <image  role="profileImage" src="{{$product_images->product_image}}" />
+                                     </div>
+                                     <input role="imageUpload" type="file" name="u_pro_img"
+                                            name="profile_photo" placeholder="Photo" required="" capture>        
+                            
                             </label>      
     
                   
@@ -77,5 +87,31 @@
 
  
   </div>
+
+  <script>
+      $("[role='profileImage']").click(function(e) {
+
+        $this = $(this);
+        $this.parent().siblings("[role='imageUpload']").trigger('click');
+    });
+
+function fasterPreview( uploader ) {
+
+    $uploadInputField = $(uploader);
+    $previewImageField = $uploadInputField.siblings("#profile-container").find("[role='profileImage']");
+
+    if ( uploader.files && uploader.files[0] ){
+        uploadedFileUrl = window.URL.createObjectURL(uploader.files[0]);
+        $previewImageField.attr('src', uploadedFileUrl);
+    }
+}
+
+$("[role='imageUpload']").change(function(){
+    fasterPreview( this );
+});
+
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 @endsection

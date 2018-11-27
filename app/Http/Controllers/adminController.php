@@ -77,6 +77,28 @@ class adminController extends Controller
     }
     
 
+    public function proudcts(){
+
+
+        $data = DB::table('products')
+        ->get();
+
+        return view('admin.product')
+        ->with('product_data',$data);
+    }
+
+
+    public function claimed_order(){
+
+
+        $order_data = DB::table('orders')
+        ->join('users','users.id','=','orders.id')
+        ->where('orders.status','=','claimed')
+        ->get();
+
+        return view('admin.claimed_order')->with('order_data',$order_data);
+    }
+
     //---------------------------------------------------------------
   
    
@@ -276,6 +298,12 @@ class adminController extends Controller
 
         return view('admin.order_shipping')->with('token',$token);
     }
+    
+    public function editClaimedOrder($token){
+
+        return view('admin.claimed_oreder_edit')->with('token',$token);
+
+    }
 
     public function editOrderDelete($token){
 
@@ -318,6 +346,42 @@ class adminController extends Controller
         ->with('id',$id);
     }
 
+    public function editproudctsDetails($id){
+
+        $data = DB::table('products')
+        ->join('brands','brands.brand_id','=','products.brand_id')
+        ->join('categories','categories.category_id','=','products.category_id')
+        ->join('users','users.id','products.id')
+        ->where('users.role','=','vendor')
+        ->where('products.product_id',$id)
+        ->get();
+
+
+        $product_images = DB::table('product_images')->where('product_id',$id)->get();
+
+        return view('admin.product_details')
+        ->with('data',$data)
+        ->with('images',$product_images);
+    }
+
+    public function editproudctsVisiblity($id){
+
+        $data = DB::table('products')->where('product_id',$id)->get();
+        return view('admin.product_visiblity_edit')->with('data',$data);
+
+    }
+
+
+    public function editproudctsDelete($id){
+
+        $data = DB::table('products')->where('product_id',$id)->get();
+        return view('admin.product_delete')->with('data',$data);
+
+    }
+
+
+  
+
 
 
     
@@ -351,6 +415,17 @@ class adminController extends Controller
 
         DB::table('vendors')->where('email',$email)->update($approveVendor);
 
+
+
+        $product_status = [
+            'product_visiblity'=>'online'
+        ];
+
+       
+
+     DB::table('products')->where('id','=',$request->v_id)->update($product_status);
+       // dd($data);
+
         return redirect()->route('admin.vendor');
 
 
@@ -366,6 +441,15 @@ class adminController extends Controller
         ];
 
         DB::table('vendors')->where('email',$email)->update($approveVendor);
+
+        $product_status = [
+            'product_visiblity'=>'offline'
+        ];
+
+       
+
+     DB::table('products')->where('id','=',$request->v_id)->update($product_status);
+       // dd($data);
 
         return redirect()->route('admin.vendor');
 
@@ -403,6 +487,21 @@ class adminController extends Controller
 
     }
 
+    public function claimedOrder(Request $request, $token)
+    {
+        //
+
+        $claimed = [
+            'status'=>'claimed'
+        ];
+
+        DB::table('orders')->where('token_number',$token)->update($claimed);
+
+        return redirect()->route('admin.claimed.order');
+
+
+    }
+
     public function updateCategories(Request $request,$id){
         $data = [
             'category_name'=>$request->u_c_name
@@ -413,7 +512,7 @@ class adminController extends Controller
         return redirect()->route('admin.categories');
     }
 
-    public function updateBrands(brandNameUpdateValidationRequest $request,$id){
+    public function updateBrands(Request $request,$id){
         $data = [
             'brand_name'=>$request->u_b_name
         ];
@@ -421,6 +520,26 @@ class adminController extends Controller
         DB::table('brands')->where('brand_id',$id)->update($data);
 
         return redirect()->route('admin.brands');
+    }
+
+    public function updateProductOnline(Request $request,$id){
+
+        $data = [
+            'product_visiblity'=>'online'
+        ];
+            DB::table('products')->where('product_id',$id)->update($data);
+
+            return redirect()->route('admin.product');
+    }
+
+    public function updateProductOffline(Request $request,$id){
+        $data = [
+            'product_visiblity'=>'offline'
+        ];
+            DB::table('products')->where('product_id',$id)->update($data);
+
+            return redirect()->route('admin.product');
+        
     }
 
     /**
@@ -466,8 +585,6 @@ class adminController extends Controller
 
     public function destroyCategory($id){
 
-      
-
         return redirect()->route('admin.categories');
 
     }
@@ -476,6 +593,14 @@ class adminController extends Controller
 
         return redirect()->route('admin.brands');
 
+    }
+
+    public function destroyProduct($id){
+
+        DB::table('products')->where('product_id',$id)->delete();
+        DB::table('product_images')->where('product_id',$id)->delete();
+
+        return redirect()->route('admin.product');
     }
 
     

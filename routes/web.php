@@ -100,6 +100,12 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::post('/admin/order shipping/{token}','adminController@shippingOrder')->name('admin.order.shipping');
     Route::get('/admin/order delete edit/{token}','adminController@editOrderDelete')->name('admin.order.delete.edit');
     Route::post('/admin/order/delete/{token}','adminController@destroyOrder')->name('admin.order.delete');
+    Route::get('/admin/claimed order','adminController@claimed_order')->name('admin.claimed.order');
+    Route::get('/admin/claimed order edit/{token}','adminController@editClaimedOrder')->name('admin.claimed.order.edit');
+    Route::post('/admin/order claimed/{token}','adminController@claimedOrder')->name('admin.order.claimed');
+
+
+
 
 
 
@@ -120,15 +126,17 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::post('/admin/categories/delete/{id}','adminController@destroyCategories')->name('admin.categories.delete');
     Route::get('/admin/categories delete edit/{id}','adminController@editCategoriesDelete')->name('admin.categories.delete.edit');
 
+    Route::get('/admin/products','adminController@proudcts')->name('admin.product');
+    Route::get('/admin/product/detials/{id}','adminController@editproudctsDetails')->name('admin.product.details.edit');
+    Route::get('/admin/product visblity/{id}','adminController@editproudctsVisiblity')->name('admin.product.visiblity.edit');
+    Route::post('/admin/product/online/{id}','adminController@updateProductOnline')->name('admin.product.online');
+    Route::post('/admin/product/offline/{id}','adminController@updateProductOffline')->name('admin.product.offline');
+    Route::get('/admin/product delete edit/{id}','adminController@editproudctsDelete')->name('admin.product.delete.edit');
+    Route::post('/admin/product/delete/{id}','adminController@destroyProduct')->name('admin.product.delete');
 
 
-
-
-  
 
 });
-
-
 
 
 /**

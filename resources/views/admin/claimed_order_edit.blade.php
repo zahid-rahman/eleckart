@@ -2,7 +2,7 @@
 @include('layouts.design')
 
 @section('title')
-    Admin-Order
+    Admin-claimed order edit
 @endsection
 
 @section('content1')
@@ -24,7 +24,6 @@
                                 <li><a class="btn btn-primary" href="{{route('admin.brands')}}">brands</a></li>
                                 <li><a class="btn btn-primary" href="">Notifications</a></li>
                                 <li><a class="btn btn-primary" href="">reports</a></li>
-
                         </ul>
                     </div>
             
@@ -34,16 +33,16 @@
                                 <div class="panel-group">
                                         <div class="panel panel-default">
                                           <div class="panel-heading">
-                                              <strong><h2>Order Shipping</h2></strong>
+                                              <strong><h2>Order Delivery confirmation</h2></strong>
                                             </div>
                                             <div class="panel-body">
 
-                                               <p>Press yes button for changing status to shipping</p>
+                                               <p>Press yes button if only the order has some issues</p>
                                                
 
-                                               <form action="{{route('admin.order.shipping',['token'=>$token])}}" method="post">
+                                               <form action="{{route('admin.order.claimed',['token'=>$token])}}" method="post">
                                                    <input type="submit" class="btn btn-success" value="yes">
-                                                    <a href="{{route('admin.orderdeliver')}}" class="btn btn-danger">no</a>
+                                                    <a href="{{route('admin.order')}}" class="btn btn-danger">no</a>
                                                </form>
                                                     
                                             
