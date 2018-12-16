@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Order Confirmation</title>
 
     @include('layouts.design')
 </head>
@@ -96,7 +96,11 @@
                     {{--data-toggle="modal" data-target="#myModal"--}}
                     <input type="submit" class="btn btn-success hvr-wobble-top" value="Confirm order"
                            data-toggle="modal" data-target="#myModal">
-            
+
+                    <a href="{{route('order.online.payment')}}" class="btn btn-info hvr-wobble-top" >Pay Online</a>
+
+
+
                     {{--greeting configuration with modal--}}
             
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

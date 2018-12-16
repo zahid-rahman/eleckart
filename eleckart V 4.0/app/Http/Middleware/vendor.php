@@ -18,6 +18,7 @@ class vendor
     public function handle($request, Closure $next)
     {
         if(Auth::check() && Auth::User()->hasrole()=="vendor"){
+
             return $next($request);
 
             // return view('vendor');

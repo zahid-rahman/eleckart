@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="about_title_image">
-                <img src="img/about_img/bg-banner-01.jpg" alt="">
+                <img src="img/abo.jpg" alt="">
             </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="col-sm-6">
                 <div class="photo">
-                    <img src="img/about_img/banner-10.jpg" alt="">
+                    <img src="img/mission.jpg" alt="">
                 </div>
             </div>
             <div class="col-sm-6">

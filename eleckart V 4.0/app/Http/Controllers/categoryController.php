@@ -44,6 +44,7 @@ class categoryController extends Controller
            // dd($request->cat);
             $product_data = DB::table('products')
                 ->join('categories','categories.category_id','=','products.category_id')
+                ->join('discount','discount.product_id','=','products.product_id')
                 ->where('categories.category_name','=',$request->cat)
                 ->Where('products.product_name','like','%'.$request->search.'%')
                 ->get();
@@ -64,8 +65,6 @@ class categoryController extends Controller
 
                         if($value->product_visiblity == "online"){
 
-
-
                             echo ' <div id="product_card">';
                                 echo '
                                    <a href="'.route("product.product-detials",["id"=>$value->product_id]).'">
@@ -77,6 +76,24 @@ class categoryController extends Controller
                                 echo ' <div class="content">
                                         <p><b>'.$value->product_name.'</b></p>
                                 ';
+
+
+                            $pro_avg= DB::table('ratings')->where('product_id',$value->product_id)->avg('rating_number');
+                            $avg= (int)ceil($pro_avg);
+
+                            for($i = 0; $i < 5; $i++){
+                                if($avg != 0){
+                                    echo '
+                                     <span  class="fa fa-star signed" ></span>
+                                       
+                                    ';
+                                    $avg--;
+                                }else{
+                                    echo '<span  class="fa fa-star" ></span>';
+                                }
+                            }
+
+
                                     if( count($discount) == 0){
                                         echo '  <p>price : '.$value->product_price.' BDT</p>';
                                     }else{
@@ -103,29 +120,32 @@ class categoryController extends Controller
                                         </div>';
                                     }else{
                                         echo '
-                                                <form action="{{route("cart.add")}}">
+                                                <form action="'.route("cart.add").'">
                                 
-                                                {{csrf_field()}}
+                                              <p hidden>{{csrf_field()}}</p> 
                 
                                                 <div class="form-group">
-                                                    <input style="display: none" name="u_id" value="{{Auth::user()->id}}" hidden>
+                                                    <input style="display: none" name="u_id" value="'.Auth::user()->id.'" hidden>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input style="display: none" name="p_id" value="{{$item->product_id}}" hidden>
+                                                    <input style="display: none" name="p_id" value="'.$value->product_id.'" hidden>
                                                 </div>
                                                 <div class="form-group">
-                                                    {{-- editor --}}
+                                                   
                                                     <input style="display: none" name="p_qun"  hidden>
                                                 </div>
                 
-                                                <div class="form-group">
-                                                    {{-- editor --}}
-                                                    <input style="display: none" name="t_price" value="{{$item->product_price}}" hidden>
-                                                </div>
-                
-                
-                
-                                                <input type="submit" class="btn btn-danger hvr-wobble-top" value="add to cart">
+                                                <div class="form-group">';
+
+
+
+                                        if($value->discount == 0) { echo ' <input style="display: none" name="t_price" value="'.$value->product_price.'" hidden>';}
+                                        elseif($value->discount >0){  echo'<input style="display: none" name="t_price" value="'.$value->discount_product_price.'" hidden>';}
+
+
+                                        echo '</div>';
+
+                                        echo '<input type="submit" class="btn btn-danger hvr-wobble-top" value="add to cart">
                 
                                             </form>
                                         ';
@@ -200,6 +220,7 @@ class categoryController extends Controller
 
         $product_categories = DB::table('products')
         ->join('categories','products.category_id','=','categories.category_id')
+        ->join('discount','discount.product_id','=','products.product_id')
         ->where('categories.category_name','=',$name)
         ->Where('products.product_visiblity','=',$visiblity)
         ->paginate(6);

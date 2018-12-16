@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->integer('brand_id');
             $table->integer('category_id');
             $table->integer('id');
+            $table->integer('product_avg_rating');
             $table->timestamps();
         });
 

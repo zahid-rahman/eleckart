@@ -5,6 +5,7 @@
     vendor product
 @endsection
 
+
 {{--custom css file include--}}
 @section('custom-css')
     <link rel="stylesheet" href="/custom_css/style.css">
@@ -16,10 +17,9 @@
         <div class="row">
             <div class="col-sm-3">
                 <ul id="vendor-navigation" class="nav nav-piles">
-                    <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a>
-                    </li>
+                    <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a></li>
                     <li><a class="btn btn-primary" href="{{route('vendor.products')}}">Product</a></li>
-                    <li><a class="btn btn-primary" href="{{route('vendor.brands')}}">orders</a></li>
+                    <li><a class="btn btn-primary" href="{{route('vendor.profile.setting',['name'=>Auth::user()->id])}}">profile setting</a></li>
 
                 </ul>
             </div>
@@ -49,10 +49,21 @@
 
                     </div>
                     <div class="panel-body">
+
+                        <form >
+                            <div class="form-group">
+
+                                <input type="search" name="search" onkeyup="searchingValue()" id="search" class="form-control" width="50%" placeholder="search products">
+                                {{-- <input type="text" name="c_name" id="cat" onkeyup="searchingValue()" value="{{$cat_name->category_name}}" hidden> --}}
+                            </div>
+
+
+                        </form>
+
                         <div id="container">
 
 
-                            <table class="table" id="product_table">
+                            <table class="table generaldata" id="product_table">
                                 <tr align="center">
                                     <td><strong>product name</strong></td>
                                     <td width="10%"><strong>product info</strong></td>
@@ -72,10 +83,10 @@
 
                                 {{-- {{dd($pro)}}   --}}
                                 @foreach($pro as $item)
-
+                                    <tbody>
                                     <tr align="center">
                                         <td>{{$item->product_name}}</td>
-                                        <td><a href="">view info</a></td>
+                                        <td><a href={{route('vendor.view.product',['id'=>$item->product_id])}}>view info</a></td>
                                         <td><a href="{{route('vendor.discount.set',['id'=>$item->product_id])}}">click here</a></td>
                                         {{--<td  width="15%">{{$item->product_price}}</td>--}}
                                         {{--<td  width="15%"> {{$item->product_quantity}}</td>--}}
@@ -117,9 +128,47 @@
 
                                         </td>
                                     </tr>
+                                    </tbody>
                                 @endforeach
 
                             </table>
+
+
+                            <table class="table ajaxdata" style="display:none" >
+                                <tr align="center">
+                                    <td><strong>product name</strong></td>
+                                    <td width="10%"><strong>product info</strong></td>
+                                    <td width="15%"><strong>set discount</strong></td>
+                                    {{--<td><strong>product price</strong></td>--}}
+                                    {{--<td><strong>quantity</strong></td>--}}
+                                    <td><strong>status</strong></td>
+                                    <td><strong>upload pics</strong></td>
+                                    <td width="15%"><strong>view pics</strong></td>
+                                    {{--<td><strong>discount</strong></td>--}}
+
+                                    {{-- <td><strong>upload pics</strong></td>
+                                    <td><strong>view product images</strong></td> --}}
+                                    <td><strong>actions</strong></td>
+                                </tr>
+
+
+                                <tbody id="success">
+
+                                </tbody>
+
+
+
+                            </table>
+
+
+
+
+
+                            <div align="center">
+                                <div class ="pagination" >
+                                    {{ $pro->render() }}
+                                </div>
+                            </div>
 
                         </div>
 
@@ -131,5 +180,47 @@
 
         </div>
     </div>
+
+
+
+
+    <script type="text/javascript">
+
+        function searchingValue(){
+
+            var search = $('#search').val();
+
+
+
+            if(search){
+                $('.generaldata').hide();
+                $('.ajaxdata').show();
+
+            }else{
+                $('.generaldata').show();
+                $('.ajaxdata').hide();
+            }
+
+            $.ajax({
+                type:"GET",
+                url:'{{URL::to('/search/products')}}',
+                data:{
+                    search:search,
+                    _token: $('#signup-token').val()
+
+                },
+                datatype:'html',
+                success: function (response){
+                    // console.log(response);
+                    $("#success").html(response);
+                }
+            });
+        }
+
+    </script>
+
+
+
+
 
 @endsection

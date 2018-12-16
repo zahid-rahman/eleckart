@@ -16,10 +16,10 @@
                       </div>
                   </div>
                   <div class="panel-body">
-                        <div class="container">
+                        {{--<div class="container">--}}
                 
         
-                                <table class="table">
+                                <table class="table table-responsive">
                         
                                     <tr>
                                         <th>Product</th>
@@ -38,20 +38,34 @@
                                             <td>{{$cart_item->product_name}}</td>
                                             <td align="center">
                                                 {{--@include('cart.add')--}}
-                                                    <form action="{{route('cart.update')}}">
+                                                    <form action="{{route('cart.update')}}" method="post">
                                                         {{csrf_field()}}
                         
                                                         <div class="amount_container" serial="1">
+
+                                                            <input type="text" name="p_id" value="{{$cart_item->product_id}}" hidden>
+
                                                             <button class="plus" role="incrementer">+</button>
-                                                            <input class="quantity" name="pro_qun" type="text" role="amount" value="{{$cart_item->order_quantity}}" readonly/>
+                                                            <input class="quantity" id="p_qun" name="pro_qun" type="text" role="amount" value="{{$cart_item->order_quantity}}" readonly/>
                                                             <button  class="minus" role="decrementer">-</button>
+
+                                                            @if($cart_item->discount == 0)
                                                             <input type="text" name="price" value="{{$cart_item->product_price}}" hidden>
+                                                            @elseif($cart_item->discount > 0)
+                                                                <input type="text" name="price" value="{{$cart_item->discount_product_price}}" hidden>
+
+                                                            @endif
                                                             <input type="text" name="pro_id" value="{{$cart_item->product_id}}" hidden>
                                                             <input type="submit" class="hvr-wobble-top" id="price_update" value="update">
                                                         </div>
                                                         {{-- <input type="number" name="pro_qun" min="1" value="1" id="max_min_qun"> --}}
+
                                             
-                                                    </form>                     
+                                                    </form>
+
+
+
+
                                             </td>
                         
                                             <td>
@@ -59,7 +73,7 @@
                                             </td>
                                             <td class="pro_price">{{$cart_item->total_price}}</td>
                         
-                                            <td>No</td>
+                                            <td>{{$cart_item->discount}} %</td>
                         
                         
                                             <td>
@@ -79,6 +93,11 @@
                                     @endforeach
                         
                                 </table>
+
+                      @if(Session::has('message'))
+                          <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                      @endif
+
                                 <hr>
                         
                                 <div class="row">
@@ -138,7 +157,7 @@
                                         <a href="{{route('delete.cart')}}" class="btn btn-danger hvr-wobble-top">clear the cart</a>
                                     </div>
                                 </div>
-                            </div>
+                            {{--</div>--}}
                                     
                     </div>
           

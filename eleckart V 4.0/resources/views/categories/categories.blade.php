@@ -61,13 +61,56 @@
 
         <p>total product ({{$total_product}})</p>
 
-        <form >
-            <div class="form-group">
+        <div class="row">
+            {{--<div class="col-sm-4"></div>--}}
+            <div class="col-sm-8">
+                <form>
+                    <div class="form-group" style="width: 90%" align="center">
 
-                <input type="search" name="search" onkeyup="searching()" id="search" class="form-control" width="50%" placeholder="search your desired product">
-                <input type="text" name="cat" onkeyup="searching()" id="cat" class="form-control" value="{{$cat_name->category_name}}" style="display: none;">
+                        <input type="search" name="search" onkeyup="searching()" id="search" class="form-control"  placeholder="search your desired product">
+
+                    </div>
+                </form>
             </div>
-        </form>
+            <div class="col-sm-4">
+
+                {{--<form action="{{route('search.cat.sort')}}" class="form-inline" >--}}
+                    {{--<div class="form-group" style="width:160%;margin-right:50px">--}}
+
+                        {{--<div class="row">--}}
+
+                            {{--<div class="col-sm-4">--}}
+                            {{--<select style="margin-right:10px" name="selector_rating" id=""  class="form-control">--}}
+                            {{--<option value="(rating)lowest to highest" class="form-control">(rating)lowest to highest</option>--}}
+                            {{--<option value="(rating)highest to lowest" class="form-control">--}}
+                            {{--(rating)highest to lowest--}}
+                            {{--</option>--}}
+                            {{--</select>--}}
+                            {{--</div>--}}
+                            {{--<div class="col-sm-4">--}}
+                                {{--<select style="margin-left:5px" name="selector_price" id=""  class="form-control">--}}
+                                    {{--<option value="(price)lowest to highest" class="form-control">(price)lowest to highest</option>--}}
+                                    {{--<option value="(price)highest to lowest" class="form-control">--}}
+                                        {{--(price)highest to lowest--}}
+                                    {{--</option>--}}
+                                    {{--<option value="popularity">Popularity</option>--}}
+                                {{--</select>--}}
+
+
+                            {{--</div>--}}
+
+                            {{--<div class="col-sm-4"> <input style="margin-left:10px" type="submit" value="find" class="btn btn-primary"></div>--}}
+
+
+
+
+                        {{--</div>--}}
+
+
+                    {{--</div>--}}
+                {{--</form>--}}
+            </div>
+        </div>
 
     </div>
     <div class="container-fluid">
@@ -94,10 +137,32 @@
                                 <img src="{{$item->product_thumbnail}}" alt="Avatar" class="img-responsive">
                             </a>
 
-
-
                             <div class="content">
                                 <p><b>{{$item->product_name}}</b></p>
+
+
+                                @php
+                                    $pro_avg= DB::table('ratings')->where('product_id',$item->product_id)->avg('rating_number');
+                                    $avg= (int)ceil($pro_avg);
+                                @endphp
+
+
+                                @for($i = 0; $i < 5; $i++)
+
+                                    @if($avg != 0)
+                                        <span  class="fa fa-star signed" ></span>
+                                        <p hidden>
+
+                                            {{$avg = $avg - 1}}
+                                        </p>
+
+                                    @else
+                                        <span  class="fa fa-star" ></span>
+
+                                    @endif
+
+                                @endfor
+
                                 @if( count($discount) == 0)
                                     <p>price : {{$item->product_price}} BDT</p>
                                 @else
@@ -144,7 +209,13 @@
 
                                             <div class="form-group">
                                                 {{-- editor --}}
+
+                                                @if($item->discount == 0)
                                                 <input style="display: none" name="t_price" value="{{$item->product_price}}" hidden>
+                                                    @elseif($item->discount > 0)
+                                                    <input style="display: none" name="t_price" value="{{$item->discount_product_price}}" hidden>
+
+                                                @endif
                                             </div>
 
 

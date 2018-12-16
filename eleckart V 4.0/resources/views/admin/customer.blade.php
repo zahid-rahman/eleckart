@@ -38,11 +38,17 @@
                                                       <strong><h2>Customers</h2></strong>
                                                     </div>
                                                     <div class="panel-body">
+                                                        <form >
+                                                            <div class="form-group">
+                                                                <input type="search" name="search" onkeyup="searchingValue()" id="search" class="form-control" width="50%" placeholder="search customers">
+                                                            </div>
 
+
+                                                        </form>
 
                                                         @if(count($customer_data) == 0)
                                                         @else
-                                                            <table class="table" id="product_table">
+                                                            <table class="table generaldata" id="product_table">
                                                                     <tr align="center">
                                                                             <td><strong>#</strong></td>
                                                                             <td><strong>Customer name</strong></td>
@@ -58,7 +64,8 @@
                                                 
                                                                 
                                                                     @foreach($customer_data as $customers)    
-                                                              
+
+                                                                        <tbody>
                                                                 
                                                                     <tr class="default" align="center">
                                                                             <td>{{$loop->index+1}}</td>
@@ -99,11 +106,36 @@
                                                                     
                                                                             </td>
                                                                     </tr>
-
+                                                                </tbody>
                                                                   
                                                               @endforeach
                                                     
                                                                 </table>
+
+
+                                                            <table class="table ajaxdata" style="display:none" id="product_table">
+                                                                <tr align="center">
+                                                                    <td><strong>#</strong></td>
+                                                                    <td><strong>Customer name</strong></td>
+                                                                    <td><strong>email</strong></td>
+                                                                    <td><strong>phone</strong></td>
+                                                                    <td><strong>address</strong></td>
+
+                                                                    <td><strong>status</strong></td>
+
+                                                                    <td><strong>actions</strong></td>
+                                                                </tr>
+
+
+                                                                <tbody id="success">
+
+                                                                </tbody>
+
+
+
+                                                            </table>
+
+
                                                                 <div align="center">
                                                                         <div class ="pagination" >
                                                                                 {{ $customer_data->fragment('customers')->links() }}
@@ -128,9 +160,43 @@
             </div>
     </div>
 
-   
+    <script type="text/javascript">
 
-   
+        function searchingValue(){
+
+            var search = $('#search').val();
+
+
+
+            if(search){
+                $('.generaldata').hide();
+                $('.ajaxdata').show();
+
+            }else{
+                $('.generaldata').show();
+                $('.ajaxdata').hide();
+            }
+
+            $.ajax({
+                type:"GET",
+                url:'{{URL::to('/search/customers')}}',
+                data:{
+                    search:search,
+                    _token: $('#signup-token').val()
+
+                },
+                datatype:'html',
+                success: function (response){
+                    // console.log(response);
+                    $("#success").html(response);
+                }
+            });
+        }
+
+    </script>
+
+
+
 
 @endsection
 

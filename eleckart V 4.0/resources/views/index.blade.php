@@ -4,7 +4,7 @@
 {{--custom css file include--}}
 @section('custom-css')
     <link rel="stylesheet" href="custom_css/style.css">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	{{--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">--}}
 
 @endsection
 
@@ -95,331 +95,78 @@
 {{--tab bar for showing tranding brands, upcoming new brands and flash sale(offers)--}}
 @section('content3')
 
-    <br>
 
-    <div class="container">
-
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">Tranding</a></li>
-            <li><a data-toggle="tab" href="#menu1">New Brands</a></li>
-            <li><a data-toggle="tab" href="#menu2">Flash sales</a></li>
-
-        </ul>
-        {{--tranding brands section--}}
-        <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
-                <h3>Tranding brands</h3>
-
-                <div class="container">
-                    <table align="center" class="tab-table">
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                </div>
-
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-
-                                </div>
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-
-                                </div>
-                            </td>
-
-                        </tr>
-
-                    </table>
-                </div>
-
-
-            </div>
-
-            {{--new brands section--}}
-            <div id="menu1" class="tab-pane fade">
-                <h3>Upcoming new brands</h3>
-
-                <div class="container">
-                    <table align="center">
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                </div>
-
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-
-                        </tr>
-
-                    </table>
-                </div>
-
-
-            </div>
-
-            {{--flash sales section--}}
-            <div id="menu2" class="tab-pane fade">
-                <h3>Flash sales</h3>
-                <div class="container">
-                    <table align="center">
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-                                    </a>
-                                </div>
-
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-                            <td id="cell">
-                                <div class="box">
-                                    <a href="">
-                                        <img src="img/brand_img/thumb-item-01.jpg" alt="Avatar" class="image">
-
-                                    </a>
-                                    {{--<div class="middle">--}}
-                                    {{--<button class="text">John Doe</button>--}}
-                                    {{--</div>--}}
-                                </div>
-                            </td>
-
-                        </tr>
-
-                    </table>
-                </div>
-            </div>
-
-        </div>
-    </div>
 @endsection
 
 {{--collections sections--}}
-<div class="container">
+{{--<div class="container">--}}
     {{--collection title--}}
-    @section('content6')
+    {{--@section('content6')--}}
 
-        <h2>Collections</h2>
-        <br>
-    @endsection
+        {{--<h2>Collections</h2>--}}
+        {{--<br>--}}
+    {{--@endsection--}}
 
     {{--4 collection section in one row--}}
-    <div class="collections-section">
-        @section('content7')
+    {{--<div class="collections-section">--}}
+        {{--@section('content7')--}}
 
-            <div class="collection-box">
-                <img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">
-                <div class="overlay">
-                    <a href="" id="button" class="btn btn-success">show</a>
-                </div>
-            </div>
+            {{--<div class="collection-box">--}}
+                {{--<img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">--}}
+                {{--<div class="overlay">--}}
+                    {{--<a href="" id="button" class="btn btn-success">show</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        @endsection
-        @section('content8')
+        {{--@endsection--}}
+        {{--@section('content8')--}}
 
-            <div class="collection-box">
-                <img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">
-                <div class="overlay">
-                    <a href="" id="button" class="btn btn-success">show</a>
-                </div>
-            </div>
+            {{--<div class="collection-box">--}}
+                {{--<img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">--}}
+                {{--<div class="overlay">--}}
+                    {{--<a href="" id="button" class="btn btn-success">show</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        @endsection
+        {{--@endsection--}}
 
-        @section('content9')
+        {{--@section('content9')--}}
 
-            <div class="collection-box">
-                <img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">
-                <div class="overlay">
-                    <a href="" id="button" class="btn btn-success">show</a>
-                </div>
-            </div>
+            {{--<div class="collection-box">--}}
+                {{--<img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">--}}
+                {{--<div class="overlay">--}}
+                    {{--<a href="" id="button" class="btn btn-success">show</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        @endsection
+        {{--@endsection--}}
 
-        @section('content10')
+        {{--@section('content10')--}}
 
-            <div class="collection-box">
-                <img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">
-                <div class="overlay">
-                    <a href="" id="button" class="btn btn-success">show</a>
-                </div>
-            </div>
+            {{--<div class="collection-box">--}}
+                {{--<img src="img/collection_img/product-detail-01.jpg" alt="Avatar" class="collection_image">--}}
+                {{--<div class="overlay">--}}
+                    {{--<a href="" id="button" class="btn btn-success">show</a>--}}
+                {{--</div>--}}
+            {{--</div>--}}
 
-        @endsection
-    </div>
+        {{--@endsection--}}
+    {{--</div>--}}
 
 
-</div>
+{{--</div>--}}
 
 {{--view categories--}}
 
 {{--category title--}}
 @section('content11')
     <h2>view categories</h2>
-    <br>
+
 @endsection
 
 
-<div class="category-section">
-    @section('content12')
+{{--<div class="category-section">--}}
+    {{--@section('content12')--}}
         {{--<a href="" class="category-box">--}}
         {{--<img src="img/category_img/gallery-05.jpg" alt="Avatar" class="category-img">--}}
         {{--<div class="animation">--}}
@@ -427,11 +174,11 @@
         {{--</div>--}}
         {{--</a>--}}
 
-        <button class="btn btn-warning button" style="vertical-align:middle"><span>category 1 </span></button>
+        {{--<button class="btn btn-warning button" style="vertical-align:middle"><span>category 1 </span></button>--}}
 
-    @endsection
+    {{--@endsection--}}
 
-    @section('content13')
+    {{--@section('content13')--}}
         {{--<a href="" class="category-box">--}}
         {{--<img src="img/category_img/gallery-05.jpg" alt="Avatar" class="category-img">--}}
         {{--<div class="animation">--}}
@@ -440,40 +187,40 @@
         {{--</a>--}}
 
 
-        <button class="btn btn-warning button" style="vertical-align:middle"><span>category 2 </span></button>
+        {{--<button class="btn btn-warning button" style="vertical-align:middle"><span>category 2 </span></button>--}}
 
 
 
-    @endsection
+    {{--@endsection--}}
 
-    @section('content14')
+    {{--@section('content14')--}}
         {{--<a href="" class="category-box">--}}
         {{--<img src="img/category_img/gallery-05.jpg" alt="Avatar" class="category-img">--}}
         {{--<div class="animation">--}}
         {{--<a href="" id="button" class="btn btn-success">show</a>--}}
         {{--</div>--}}
         {{--</a>--}}
-        <button class="btn btn-warning button" style="vertical-align:middle"><span>category 3 </span></button>
-    @endsection
+        {{--<button class="btn btn-warning button" style="vertical-align:middle"><span>category 3 </span></button>--}}
+    {{--@endsection--}}
 
-    @section('content15')
+    {{--@section('content15')--}}
         {{--<a href="" class="category-box">--}}
         {{--<img src="img/category_img/gallery-05.jpg" alt="Avatar" class="category-img">--}}
         {{--<<div class="animation">--}}
         {{--<a href="" id="button" class="btn btn-success">show</a>--}}
         {{--</div>--}}
         {{--</a>--}}
-        <button class="btn btn-warning button" style="vertical-align:middle"><span>category 4 </span></button>
-    @endsection
-</div>
-@section('content16')
-    <br>
-    <br>
-    <a href="" id="load-more" align="center" class="btn btn-primary">
-        load more
-    </a>
+        {{--<button class="btn btn-warning button" style="vertical-align:middle"><span>category 4 </span></button>--}}
+    {{--@endsection--}}
+{{--</div>--}}
+{{--@section('content16')--}}
+    {{--<br>--}}
+    {{--<br>--}}
+    {{--<a href="" id="load-more" align="center" class="btn btn-primary">--}}
+        {{--load more--}}
+    {{--</a>--}}
     {{--<a id="load-more" class="w3-btn w3-blue">load more</a>--}}
-@endsection
+{{--@endsection--}}
 
 
 {{--service section--}}
@@ -543,9 +290,9 @@
                 <div class="col-sm-3 myCols">
                     <h5>Get started</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="{{route('register')}}">Sign up</a></li>
-                        <li><a href="#">Downloads</a></li>
+                        <li><a href="{{route('homepage')}}">Home</a></li>
+                        {{--<li><a href="{{route('register')}}">Sign up</a></li>--}}
+                        {{--<li><a href="#">Downloads</a></li>--}}
                     </ul>
                 </div>
                 <div class="col-sm-3 myCols">

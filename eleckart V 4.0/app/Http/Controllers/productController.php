@@ -75,12 +75,7 @@ class productController extends Controller
 
         $counter = DB::table('mostvieweds')->get();
 
-        // $viewed_coutner = DB::select( DB::raw("SELECT counter FROM mostvieweds WHERE product_id = $id") ); 
-        // $viewed_coutner = DB::table('mostvieweds')->where('product_id',$id)->pluck('counter')->first();
-        // dd($viewed_coutner); 
-        // $v_count = (int) $viewed_coutner;
-        // //dd(gettype($v_count));
-        // $v_count++;
+
 
         $modified_counter = DB::select( DB::raw("SELECT product_id, counter+1 as mod_counter FROM mostvieweds WHERE product_id = $id") );
           foreach($modified_counter as $quantity){
@@ -95,12 +90,26 @@ class productController extends Controller
           $viewed_coutner = DB::table('mostvieweds')->where('product_id',$id)->pluck('counter')->first();
           $v_count = (int) $viewed_coutner;
 
+        $ratingReview = DB::table('reviews')
+            ->join('ratings','ratings.rating_id','=','reviews.rating_id')
+            ->join('users','users.id','=','reviews.id')
+            ->where('reviews.product_id','=',$id)->get();
+       //dd($ratingReview);
+
+
+
+        $pro_avg= DB::table('ratings')->where('product_id',$id)->avg('rating_number');
+        $avg= (int)ceil($pro_avg);
+
+
 //dd($viewed_coutner);
         return view('product.details')
             ->with('product_details',$product_details)
             ->with('product_img',$product_img)
             ->with('counter',$counter)
-            ->with('p_counter',$v_count);
+            ->with('p_counter',$v_count)
+            ->with('ratingreview',$ratingReview)
+            ->with('avg',$avg);
     }
 
     /**
@@ -135,5 +144,10 @@ class productController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function productAvgRating(){
+
     }
 }

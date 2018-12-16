@@ -37,14 +37,20 @@
                                             <strong><h2>Products</h2></strong>
                                         </div>
                                         <div class="panel-body">
+                                            <form >
+                                                <div class="form-group">
+                                                    <input type="search" name="search" onkeyup="searchingValue()" id="search" class="form-control" width="50%" placeholder="search products">
+                                                </div>
 
+
+                                            </form>
 
                                             @if(count($product_data) == 0)
                                             <div class="container">
                                                 <p>No products added yet</p>
                                             </div>
                                             @else
-                                                <table class="table" id="product_table"> 
+                                                <table class="table generaldata" id="product_table">
                                                     <tr align="center">
                                                         <td><strong>#</strong></td>
                                                         <td><strong>product name</strong></td>
@@ -55,6 +61,8 @@
 
 
                                                     @foreach ($product_data as $items)
+
+                                                     <tbody>
                                                     <tr  align="center">
                                                     <td>{{$loop->index+1}}</td>
                                                     <td>{{$items->product_name}}</td>
@@ -85,10 +93,31 @@
                                                         </td>
                                                 </tr>
 
+                                                     </tbody>
+
                                                     @endforeach
                                                    
                                                     
                                                         
+                                                </table>
+
+
+                                                <table class="table ajaxdata" style="display:none" id="product_table">
+                                                    <tr align="center">
+                                                        <td><strong>#</strong></td>
+                                                        <td><strong>product name</strong></td>
+                                                        <td><strong>Product visiblity</strong></td>
+                                                        <td><strong>information</strong></td>
+                                                        <td><strong>actions</strong></td>
+                                                    </tr>
+
+
+                                                    <tbody id="success">
+
+                                                    </tbody>
+
+
+
                                                 </table>
                                         
                                         
@@ -113,6 +142,40 @@
     </div>
 </div>
 
+<script type="text/javascript">
+
+    function searchingValue(){
+
+        var search = $('#search').val();
+
+
+
+        if(search){
+            $('.generaldata').hide();
+            $('.ajaxdata').show();
+
+        }else{
+            $('.generaldata').show();
+            $('.ajaxdata').hide();
+        }
+
+        $.ajax({
+            type:"GET",
+            url:'{{URL::to('/search/online product')}}',
+            data:{
+                search:search,
+                _token: $('#signup-token').val()
+
+            },
+            datatype:'html',
+            success: function (response){
+                // console.log(response);
+                $("#success").html(response);
+            }
+        });
+    }
+
+</script>
    
 
    

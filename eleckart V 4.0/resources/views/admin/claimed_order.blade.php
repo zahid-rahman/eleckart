@@ -39,14 +39,20 @@
                                             </div>
                                             <div class="panel-body">
 
+                                                <form >
+                                                    <div class="form-group">
+                                                        <input type="search" name="search" onkeyup="searchingValue()" id="search" class="form-control" width="50%" placeholder="search claimed orders">
+                                                    </div>
 
+
+                                                </form>
 
                                                 @if(count($order_data) == 0)
                                                 <div class="container">
                                                     <p style="color:red">There is no claimed order right now</p>
                                                 </div>
                                                 @else
-                                                    <table class="table" id="product_table">
+                                                    <table class="table generaldata" id="product_table">
                                                             <tr align="center">
                                                                 <td><strong>#</strong></td>
                                                                 <td><strong>customer name</strong></td>
@@ -60,7 +66,7 @@
 
                                                             @foreach ($order_data as $item)
 
-                                                            
+                                                            <tbody>
                                                             <tr align="center">
                                                                     <td> {{$loop->index+1}}</td>
                                                                     <td> {{$item->name}}</td>
@@ -75,16 +81,37 @@
                                                                     <td>
                                                                             
                                                                     <a href=" {{route('admin.order.confirm.edit',['token'=>$item->token_number])}}" class="btn btn-primary hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="delivery order confirmation"><span class="glyphicon glyphicon-ok-sign hvr-wobble-top"  ></a>  
-                                                                        {{-- <a href="{{route('admin.order.delete.edit',['token'=>$item->token_number])}}" class="btn btn-danger hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="cancle order"> <span class="glyphicon glyphicon-remove-sign hvr-wobble-top"  ></span></a>  --}}
-                                                                        {{-- <a href="{{route('admin.order.delete.edit',['token'=>$item->token_number])}}" class="btn btn-warning hvr-wobble-top" data-toggle="tooltip" data-placement="bottom" title="stopping order shipping"> <span class="glyphicon glyphicon-alerthvr-wobble-top"  ></a> --}}
+
                                                                     </td>
                                                               
                                                                 </tr>
+                                                            </tbody>
                                                             @endforeach
                                                              
                                                        
                                             
                                                         </table>
+
+                                                    <table class="table ajaxdata" style="display:none" id="product_table">
+                                                        <tr align="center">
+                                                            <td><strong>#</strong></td>
+                                                            <td><strong>customer name</strong></td>
+                                                            <td><strong>order token number</strong></td>
+                                                            <td><strong>order status</strong></td>
+                                                            <td><strong>order info</strong></td>
+                                                            <td><strong>actions</strong></td>
+                                                        </tr>
+
+
+                                                        <tbody id="success">
+
+                                                        </tbody>
+
+
+
+                                                    </table>
+
+
                                                         <div align="center">
                                                                 <div class ="pagination" >
                                                                         {{ $order_data->fragment('item')->links() }}
@@ -92,9 +119,6 @@
                                                         </div> 
 
                                                         @endif
-                                            
-                                            
-                                            
                                             
                                             </div>
                                         </div>
@@ -109,6 +133,40 @@
     </div>
 
 
+        <script type="text/javascript">
+
+            function searchingValue(){
+
+                var search = $('#search').val();
+
+
+
+                if(search){
+                    $('.generaldata').hide();
+                    $('.ajaxdata').show();
+
+                }else{
+                    $('.generaldata').show();
+                    $('.ajaxdata').hide();
+                }
+
+                $.ajax({
+                    type:"GET",
+                    url:'{{URL::to('/search/claimed orders')}}',
+                    data:{
+                        search:search,
+                        _token: $('#signup-token').val()
+
+                    },
+                    datatype:'html',
+                    success: function (response){
+                        // console.log(response);
+                        $("#success").html(response);
+                    }
+                });
+            }
+
+        </script>
 
    
 

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/custom_css/style.css">
 
 @endsection
-`
+
 @section('content-for-other-page')
     <div class="container">
         <h3>Add Product</h3>
@@ -65,9 +65,19 @@
 
             <div class="form-group">
 
-                    <label id="custom_upload"> Upload your product thumbnail
-                        <input type="file" name="pro_img_up" id="exampleInputFile"   size="60" >
-                    </label>
+                    {{--<label id="custom_upload"> Upload your product thumbnail--}}
+                        {{--<input type="file" name="pro_img_up" id="exampleInputFile"   size="60" >--}}
+                    {{--</label>--}}
+
+
+                <div id="profile-container">
+                    <image id="profileImage" />
+                </div>
+                <input id="imageUpload" name="pro_img_up" type="file"
+                       name="profile_photo" placeholder="Photo" required="" capture>
+
+
+
             </div>
 
             <p style="color:red">
@@ -108,7 +118,7 @@
 
             {{-- choose brand name for brand id --}}
             <div class="form-group">
-                <label>Choose your expected brand</label>
+                <label>Choose your brand</label>
                 <select id="brand_names" name="brand_name">
 
                     <p hidden>
@@ -148,7 +158,7 @@
 
             {{-- choose categories for getting the category id --}}
             <div class="form-group">
-                <label>Choose your expected categories</label>
+                <label>Choose your categories</label>
                 <select id="brand_names"  name="c_name">
 
                     <p hidden>
@@ -174,7 +184,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary hvr-wobble-top" data-toggle="modal" data-target="#myModal">next step</button>
+            <button type="submit" class="btn btn-primary hvr-wobble-top" data-toggle="modal" data-target="#myModal">create</button>
 
              {{-- <!-- Modal -->
              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -223,6 +233,24 @@
 
 
     </div>
+
+
+    <script>
+        $("#profileImage").click(function(e) {
+        $("#imageUpload").click();
+        });
+
+        function fasterPreview( uploader ) {
+        if ( uploader.files && uploader.files[0] ){
+        $('#profileImage').attr('src',
+        window.URL.createObjectURL(uploader.files[0]) );
+        }
+        }
+
+        $("#imageUpload").change(function(){
+        fasterPreview( this );
+        });
+    </script>
 
 
 

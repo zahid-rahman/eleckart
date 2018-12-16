@@ -88,7 +88,7 @@
                                                                             <td width="25%" height:10%>{{$feedback->feedback_message}}</td>
                                                                     
                                                                             <td>            
-                                                                               <a href="">reply</a>                                                                
+                                                                               <a href="mailto:{{$feedback->email }}">reply</a>
                                                                             </td>
                                                                     </tr>
 

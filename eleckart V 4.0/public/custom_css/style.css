@@ -856,11 +856,16 @@ body {
     width: 150px;
     height: 150px;
     overflow: hidden;
+    border:1px solid black;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
     border-radius: 50%;
+}
+#profile-container:hover{
+    opacity: 0.6;
+    transition: .5s ease;
 }
 
 #profile-container img {
@@ -1007,4 +1012,19 @@ body {
 
 #pagination_location{
      margin-left:600px;
+}
+
+
+/*rating bar*/
+.star {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.checked {
+    color: black;
+}
+
+.signed {
+    color: orange;
 }

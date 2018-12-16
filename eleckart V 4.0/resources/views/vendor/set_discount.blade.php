@@ -20,7 +20,9 @@
                     <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a>
                     </li>
                     <li><a class="btn btn-primary" href="{{route('vendor.products')}}">Product</a></li>
-                    <li><a class="btn btn-primary" href="{{route('vendor.brands')}}">orders</a></li>
+                    <li><a class="btn btn-primary"
+                           href="{{route('vendor.profile.setting',['name'=>Auth::user()->id])}}">profile setting</a>
+                    </li>
 
                 </ul>
             </div>
@@ -48,12 +50,19 @@
                 @foreach($pro_info as $product)
 
                             <h3>{{$product->product_name}}</h3>
+                                <br>
 
-                            <form action="{{route('vendor.discount',['id'=>$id])}}" method="post">
+                            <form class="form-inline" action="{{route('vendor.discount',['id'=>$id])}}" method="post">
                                 {{csrf_field()}}
-                                <input type="number" name="disc" value="{{$product->discount}}" required>
+                                <div class="form-group">
+                                    <input type="number" name="disc" class="form-control" value="{{$product->discount}}" required>
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="set discount">
+
+                                </div>
                                 {{--<input type="text" name="p_id" value="{{$id}}" hidden>--}}
-                                <input type="submit" value="set discount">
                             </form>
                 @endforeach
 

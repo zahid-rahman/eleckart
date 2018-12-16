@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\contactValidationRequest;
 
 
-use Mail;
+use Illuminate\Support\Facades\Mail;
+
 
 class contactController extends Controller
 {
@@ -50,7 +52,24 @@ class contactController extends Controller
        // dd($feedBckMessage);
 
 
+
+
         DB::table('feedback')->insert($feedBckMessage);
+
+
+        $data = [
+            'email'   => $request->get('u_email'),
+
+        ];
+
+       // dd($data['email']);
+
+        Mail::send('emails.support', $data, function($message) use ($data)
+        {
+            $message->from('eleckart2018@gmail.com');
+            $message->to($data['email'],'Eleckart');
+
+        });
         return redirect()->route('homepage');
     }
 

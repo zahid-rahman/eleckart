@@ -8,10 +8,11 @@
     <title>@yield('title')</title>
     <link rel="shortcut icon" href="img/cart.jpg"/>
 
-    <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../css/jquery.exzoom.css">
-	
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -57,7 +58,9 @@
                         {{--{{dd($categories)}}--}}
 
 
-                        <p hidden>{{$categories = DB::table('categories')->get()}}</p>
+                        @php
+                            {{$categories = DB::table('categories')->get();}}
+                        @endphp
 
                         @foreach( $categories as $item)
 
@@ -70,7 +73,7 @@
                     </ul>
                 </li>
                 {{-- <li id="nav-menu-link"><a href="#">brands</a></li> --}}
-            <li id="nav-menu-link"><a href="{{route('product.collection')}}">collection</a></li>
+            {{--<li id="nav-menu-link"><a href="{{route('product.collection')}}">collection</a></li>--}}
                 {{--<li id="nav-menu-link"><a href="#">view categories</a></li>--}}
 
 
@@ -81,12 +84,12 @@
             @if(url()->current() == url('/collections'))
             
             @elseif(url()->current() == url('/') ||  url()->current() == url('/about') || url()->current() == url('/contact'))
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search product">
-                </div>
-                <button type="submit" id="search" class="btn btn-danger glyphicon glyphicon-search"></button>
-            </form>
+            <form action="{{route('search.product')}}"  class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="search" name="search_product" class="form-control" placeholder="Search product" required>
+                    </div>
+                    <button type="submit" id="search" class="btn btn-danger glyphicon glyphicon-search"></button>
+                </form>
             @endif
 
 
@@ -134,6 +137,10 @@
                         <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a href="{{route('order.customer',['id'=>$id])}}" class="dropdown-item btn btn-link" style="text-decoration: none" >
                                 my orders
+                            </a>
+
+                            <a href="{{route('customer_profile_setting',['id'=>$id])}}" class="dropdown-item btn btn-link" style="text-decoration: none" >
+                                Profile setting
                             </a>
                              
 
@@ -210,6 +217,10 @@
                 {{--<li id="nav-menu-link"><a href="{{ route('vendor.dashboard') }}">{{Auth::user()->email}}</a></li>--}}
 
                 {{--</ul>--}}
+            @php
+                {{$vendor_approval = DB::table('vendors')->where('email',Auth::user()->email)->pluck('approval')->first();}}
+                @endphp
+            @if($vendor_approval == 'approve')
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item dropdown">
@@ -236,6 +247,79 @@
                     </li>
 
                 </ul>
+                @elseif($vendor_approval == 'ban')
+                    <ul class="nav navbar-nav navbar-right">
+
+                        {{-- <li id="nav-menu-link">
+                            <p hidden>{{ $id = Auth::user()->id }}</p>
+                            <a href="{{route('cart',['id'=>$id])}}">
+
+                                <p hidden> {{$cart= DB::table('carts')->where('id',Auth::user()->id)->count()}}</p>
+                                <span class="glyphicon glyphicon-shopping-cart"></span> <span
+                                        class="badge badge-light" style="background:red">{{$cart}}</span>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item dropdown">
+                            <a  style="color:red" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            @php
+                                $email = Auth::user()->email;
+                            @endphp
+
+                            <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a style="color:red" href="{{route('alert.customer',['email'=>$email])}}" class="dropdown-item btn btn-link" style="text-decoration: none" >
+                                    alert message
+                                </a>
+
+
+                                <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                                   href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+
+
+                @elseif($vendor_approval == 'pending')
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                                   href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">dashboard</a>
+                                <br>
+                                <a class="dropdown-item btn btn-link" style="text-decoration: none"
+                                   href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+
+                    </ul>
+                @endif
 
             @elseif(Auth::check() && Auth::user()->role == "admin")
                 <ul class="nav navbar-nav navbar-right">
@@ -299,9 +383,7 @@
                 <td>@yield('content5')</td>
             </tr>
         </table>
-        {{--<div class="col-sm-4"></div>--}}
-        {{--<div class="col-sm-4"></div>--}}
-        {{--<div class="col-sm-4"></div>--}}
+
     </div>
 </div>
 <br>

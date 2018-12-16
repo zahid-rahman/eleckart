@@ -67,6 +67,34 @@
                                                        <a href="{{$product_info->product_thumbnail}}" target="_blank"><img class="img-responsive" src="{{$product_info->product_thumbnail}}" alt=""></a> 
                                                         <br>
                                                         <br>
+                                                           <label style="font-size:20px" for="as_br">Product images</label><br>
+                                                           @foreach ($images as $item)
+                                                               {{-- <div >
+                                                                    <img id="product_images" src="{{$item->product_image}}" alt="">
+
+                                                               </div> --}}
+
+                                                               <div id="banner" style="overflow: hidden; display: inline-block; justify-content:space-around;">
+                                                                   <div class="">
+
+                                                                       <div class="container_img">
+                                                                           <a href="{{$item->product_image}}" target="_blank"><img src ="{{$item->product_image}}" class="image_pro" style="height:120px;width:120px; "></a>
+                                                                           {{-- <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%"> --}}
+                                                                           <div class="middle_part">
+
+                                                                           </div>
+                                                                       </div>
+
+                                                                   </div>
+
+
+                                                               </div>
+                                                           @endforeach
+                                                           <br>
+                                                           <br>
+
+
+
                                                         <label style="font-size:20px" for="add">Product quantity</label><br>
                                                         <span class="badge badge-default">{{$product_info->product_quantity}}</span>
                                                         <br>
@@ -95,39 +123,7 @@
                                                         <br>
                                                         <br>
 
-                                                        <label style="font-size:20px" for="as_br">Product images</label><br>
-                                                        @foreach ($images as $item)
-                                                        {{-- <div >
-                                                             <img id="product_images" src="{{$item->product_image}}" alt="">
- 
-                                                        </div> --}}
- 
-                                                        <div id="banner" style="overflow: hidden; display: inline-block; justify-content:space-around;">
-                                                             <div class="">
 
-                                                                    <div class="container_img">
-                                                                 <img src ="{{$item->product_image}}" class="image_pro" style="height:120px;width:120px; ">
-                                                                            {{-- <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%"> --}}
-                                                                            <div class="middle_part">
-                                                                              <button class="btn btn-danger del_button">
-                                                                                   <span class="glyphicon glyphicon-trash hvr-wobble-top"  style="color:#ffffff"></span>
-
-                                                                              </button>
-                                                                             
-                                                                            
-                                                                              
-                                                                              <a id="image_link" href="{{$item->product_image}}" target="_blank" id="edit button" class="btn btn-primary">
-                                                                                    <span class="glyphicon glyphicon-edit hvr-wobble-top"  style="color:#ffffff"></span>
-
-                                                                              </a>
-                                                                            </div>
-                                                                          </div>
-
-                                                             </div>
-                                                     
-                                                           
-                                                         </div>
-                                                        @endforeach
                                                        </div>
 
                                                      

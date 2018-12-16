@@ -18,16 +18,30 @@ class orderController extends Controller
 
     public function orderInfo($token){
 
-        $customer_ordered_product_details = DB::table('products')
-        ->join('order_infos','products.product_id','=','order_infos.product_id')
-        ->where('order_infos.order_token_number','=',$token)
-        ->get();
+        $check = DB::table('orders')
+            ->join('users','users.id','orders.id')
+            ->where('token_number','=',$token)
+            ->pluck('users.id')
+            ->first();
 
-    //    dd($customer_ordered_product_details,$token);
+
+         if($check == Auth::user()->id){
+             $customer_ordered_product_details = DB::table('products')
+                 ->join('order_infos','products.product_id','=','order_infos.product_id')
+                 ->where('order_infos.order_token_number','=',$token)
+                 ->get();
 
 
-        return view('order.order_info')
-        ->with('orederd_product_info',$customer_ordered_product_details);
+
+             //    dd($customer_ordered_product_details,$token);
+
+
+             return view('order.order_info')
+                 ->with('orederd_product_info',$customer_ordered_product_details);
+         }else{
+
+             return view('alerts.404');
+         }
 
     }
     /**
@@ -66,10 +80,6 @@ class orderController extends Controller
             ->sum('total_price');
 
 
-            // $customer_specific_ordered_product_details = DB::table('order_infos')
-            // ->where('id',$id)
-            // ->where('token_number')
-            // ->get();
 
 
         return view('order.order_details')
@@ -221,12 +231,18 @@ class orderController extends Controller
     {
         //
 
-        $customer_order = DB::table('orders')
-            ->where('id',$id)
-            ->get();
+        if(Auth::user()->id == $id){
+            $customer_order = DB::table('orders')
+                ->where('id',$id)
+                ->get();
 
-        return view('order.customer_order')
-            ->with('cust_order',$customer_order);
+            return view('order.customer_order')
+                ->with('cust_order',$customer_order);
+        }else{
+            return view('alerts.404');
+        }
+
+
 
     }
 
@@ -267,5 +283,13 @@ class orderController extends Controller
 
         return redirect()->route('cart',$id);
 
+    }
+
+    public function onlinePayment() {
+        $total_price = DB::table('carts')
+            ->where('id', Auth::user()->id)
+            ->sum('total_price');
+
+        return view("order.onlinePayment")->with('total_price', $total_price);
     }
 }

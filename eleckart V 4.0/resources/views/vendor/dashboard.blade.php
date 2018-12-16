@@ -27,7 +27,7 @@
                         <ul id="vendor-navigation" class="nav nav-piles">
                             <li><a class="btn btn-primary" href="{{route('vendor.dashboard',['name'=>Auth::user()->name])}}">Dashboard</a></li>
                             <li><a class="btn btn-primary" href="{{route('vendor.products')}}">Product</a></li>
-                            <li><a class="btn btn-primary" href="{{route('vendor.brands')}}">orders</a></li>
+                            <li><a class="btn btn-primary" href="{{route('vendor.profile.setting',['name'=>Auth::user()->id])}}">profile setting</a></li>
             
                         </ul>
                     </div>
@@ -38,57 +38,26 @@
                             <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <div class="container">
-                                                <p id="sales_rev_title">Sales revenue</p>
+                                                <p id="sales_rev_title">Dasboard</p>
                                         </div>
                                     </div>
                                     <div class="panel-body">
             
                                             <div id="container">
                                                     <div class="row">
-                                                        <div class="col-sm-6">
-                                                           
-                                                            <div class="chart">
-                                    
-                                                                <div id="piechart"></div>
-                                                                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-                                                                <script type="text/javascript">
-                                                                    // Load google charts
-                                                                    google.charts.load('current', {'packages': ['corechart']});
-                                                                    google.charts.setOnLoadCallback(drawChart);
-                                    
-                                                                    // Draw the chart and set the chart values
-                                                                    function drawChart() {
-                                                                        var data = google.visualization.arrayToDataTable([
-                                                                            ['Task', 'revenue per month'],
-                                                                            ['category 1', 100],
-                                                                            ['category 2', 200],
-                                                                            ['category 3', 400],
-                                                                            ['category 4', 200],
-                                                                            ['category 5', 800],
-                                                                            ['category 5', 200]
-                                                                        ]);
-                                    
-                                                                        // Optional; add a title and set the width and height of the chart
-                                                                        var options = {'width': 550, 'height': 400};
-                                    
-                                                                        // Display the chart inside the <div> element with id="piechart"
-                                                                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                                                                        chart.draw(data, options);
-                                                                    }
-                                                                </script>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-6">
+                                                           
+
+                                                        <div class="col-sm-12">
                                                             <div class="jumbotron container" id="total_brand">
                                                                 <h3>total brands</h3>
-                                                                <p>0</p>
+                                                                <p>{{$tot_a_b}}</p>
                                     
                                                             </div>
                                     
                                                             <div class="jumbotron container" id="total_proudct">
                                                                 <h3>total Products</h3>
-                                                                <p>0</p>
+                                                                <p>{{$tot_p}}</p>
                                     
                                                             </div>
                                     
@@ -98,11 +67,10 @@
                                     
                                                             {{--</div>--}}
                                     
-                                                            <div class="jumbotron container" id="total_revr">
-                                                                <h3>total revenue</h3>
-                                                                <p>0 BDT</p>
-                                    
-                                                            </div>
+
+
+
+
                                                         </div>
                                                     </div>
                                                 </div> 

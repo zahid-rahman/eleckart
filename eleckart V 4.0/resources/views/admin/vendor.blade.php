@@ -49,9 +49,6 @@
 
         </form>
 
-
-
-
                                                          @if(count($vendor_data) == 0)
                                                          <div class="container">
                                                              <p>No vendors added yet</p>
@@ -157,7 +154,7 @@
                                                                 
                                                  <div align="center">
                                                         <div class ="pagination" >
-                                                                {{ $vendor_data->fragment('vendors')->links() }}
+                                                                {{ $vendor_data->render() }}
                                                         </div>
                                                 </div>  
 

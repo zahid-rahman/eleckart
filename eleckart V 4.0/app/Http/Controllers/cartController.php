@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\cart;
-
-
+use Illuminate\Support\Facades\Session;
 
 
 class cartController extends Controller
@@ -73,10 +73,7 @@ class cartController extends Controller
                 $add++;
                 //
 
-
-
                 $total_price = $value->product_price * $add;
-
 
                 $update_data = [
                     'order_quantity' => $add,
@@ -134,22 +131,26 @@ class cartController extends Controller
     public function show(Request $request, $id)
     {
         //
+        if(Auth::user()->id == $id) {
+            $cart = DB::table('carts')
+                ->join('products', 'products.product_id', '=', 'carts.product_id')
+                ->join('discount', 'discount.product_id', '=', 'products.product_id')
+                ->where('carts.id', $id)
+                ->get();
 
-        $cart = DB::table('carts')
-            ->join('products', 'products.product_id', '=', 'carts.product_id')
-            ->where('carts.id', $id)
-            ->get();
-
-        $cart_total_price = DB::table('carts')
-            ->where('id', $id)
-            ->sum('total_price');
+            $cart_total_price = DB::table('carts')
+                ->where('id', $id)
+                ->sum('total_price');
 
 
-        //dd($cart_total_price);
+            //dd($cart_total_price);
 
-        return view('cart.cart')
-            ->with('cart_value', $cart)
-            ->with('total_price', $cart_total_price);
+            return view('cart.cart')
+                ->with('cart_value', $cart)
+                ->with('total_price', $cart_total_price);
+        } else {
+            return view('alerts.404');
+        }
 
     }
 
@@ -173,29 +174,22 @@ class cartController extends Controller
      */
     public function update(Request $request)
     {
+//        dd($request->p_id);
+        $product_quantity = DB::table('products')->where('product_id','=',$request->p_id)->pluck('product_quantity')->first();
 
-        $quantity = $request->pro_qun;
-        $price = $request->price;
+//        dd($product_quantity);
 
-        $total_price = $quantity * $price;
+        if($product_quantity <= 0 || $request->pro_qun > $product_quantity){
+
+            Session::flash('message', 'Selected Quantity overloaded');
+            Session::flash('alert-class', 'alert-danger');
 
 
-        // $check = DB::table('products')
-        //     ->where('product_id',$request->pro_id)
-        //     ->get();
+        }else{
+            $quantity = $request->pro_qun;
+            $price = $request->price;
 
-        // $valid=0;
-        // foreach ($check as $validation){
-        //     if($quantity > $validation && $quantity > 0) {
-        //         $valid++;
-        //     }
-
-        // }
-
-      
-
-            //dd($total_price);
-            //dd($request->pro_qun);
+            $total_price = $quantity * $price;
 
             $update_price =[
                 'order_quantity'=> $quantity,
@@ -206,25 +200,10 @@ class cartController extends Controller
                 ->where('product_id',$request->pro_id)
                 ->update($update_price);
 
-            // $product_quantity = DB::table('products')
-            // ->where('product_id',$request->pro_id) 
-            // ->pluck('product_quantity')
-            // ->first();
-            
-            // $total_product = $product_quantity - $quantity;
 
-            // $stock = [    
-            //     'product_quantity'=> $total_product
-            // ];  
-            
-            // DB::table('products')
-            // ->where('product_id',$request->pro_id)
-            // ->update($stock);
-       
+        }
+
         return redirect()->back();
-
-
-
 
 
 

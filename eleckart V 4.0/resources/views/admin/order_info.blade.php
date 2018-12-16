@@ -2,7 +2,7 @@
 @include('layouts.design')
 
 @section('title')
-    Admin-Order
+    Admin-Shipping Order
 @endsection
 
 @section('content1')
@@ -64,7 +64,7 @@
                                                         <br>
                                                         <br>
                                                         <label style="font-size:20px" for="as_br">Total price</label><br>
-                                                    <span class="badge badge-default hvr-wobble-top">{{ $item->total_price }}</span>
+                                                    <span class="badge badge-default hvr-wobble-top">{{ $item->total_price }} BDT</span>
                                                         <br>
                                                         <br>
 

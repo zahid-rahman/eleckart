@@ -19,9 +19,26 @@ class vendorDashboardController extends Controller
     {
         //
 
-        $data_check = DB::table('vendors')->where('email',Auth::user()->email)->get();    
+        $data_check = DB::table('vendors')->where('email',Auth::user()->email)->get();
 
-        return view('vendor.dashboard')->with('check',$data_check);
+        $total_assosiated_brands = DB::table('brands')
+            ->distinct()
+            ->join('products', 'products.brand_id', '=', 'brands.brand_id')
+            ->join('vendors', 'vendors.id', '=', 'products.id')
+            ->where('vendors.email', Auth::user()->email)
+            ->select('products.brand_mame')
+            ->count('products.brand_id');
+
+
+
+        $total_product = DB::table('products')
+            ->join('vendors', 'products.id', '=', 'vendors.id')
+            ->where('vendors.email', Auth::user()->email)
+            ->count();
+
+        return view('vendor.dashboard')->with('check',$data_check)
+            ->with('tot_a_b',$total_assosiated_brands)
+            ->with('tot_p',$total_product);
     }
 
     /**
@@ -32,6 +49,8 @@ class vendorDashboardController extends Controller
     public function create()
     {
         //
+
+
     }
 
     /**

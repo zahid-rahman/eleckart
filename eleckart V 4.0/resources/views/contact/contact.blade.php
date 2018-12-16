@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="contact_title_image">
-                <img src="img/contact_img/bg-banner-01.jpg" alt="">
+                <img src="img/contact-us.jpg" alt="">
             </div>
         </div>
     </div>

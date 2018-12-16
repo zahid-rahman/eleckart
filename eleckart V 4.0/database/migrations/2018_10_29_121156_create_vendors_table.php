@@ -18,7 +18,7 @@ class CreateVendorsTable extends Migration
             $table->integer('id');
             $table->string('com_name');
             $table->string('email')->unique();
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->string('address');
             $table->string('password');
             $table->string('role');

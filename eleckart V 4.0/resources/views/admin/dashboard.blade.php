@@ -92,8 +92,8 @@
                                                       <div class="col-sm-4">
                                                             <div class="jumbotron container" id="total_categories">
                                                                     <h4>total categories</h3>
-                                                                        <li><span id="dot-online"></span> online (0) </li>
-                                                                        <li><span id="dot-offline"></span> offline (0)</li>
+                                                                        <li> in total ({{$total_categories}}) </li>
+
                                         
                                                             </div>
                                                       </div>
@@ -102,8 +102,7 @@
                                                       <div class="col-sm-4">
                                                             <div class="jumbotron container" id="total_brands">
                                                                     <h4>total brands</h3>
-                                                                        <li><span id="dot-online"></span> online (0) </li>
-                                                                        <li><span id="dot-offline"></span> offline (0)</li>
+                                                                         <li> in total ({{$total_brands}}) </li>
                                         
                                                             </div>
                                                       </div>
@@ -117,29 +116,7 @@
                                             </div>
                                         </div>
             
-                            {{-- <table class="table" id="product_table">
-                                <tr>
-                                    <td><strong>product name</strong></td>
-                                    <td><strong>product price</strong></td>
-                                    <td><strong>product in stock</strong></td>
-                                    <td><strong>product in stock</strong></td>
-                                    <td><strong>view product images</strong></td>
-                                  
-                                    <td><strong>actions</strong></td>
-                                </tr>
-            
-            
-                            
-            
-                                  <tr>
-                                      <td>1</td>
-                                      <td>2</td>
-                                      <td>3</td>
-                                      <td>4</td>
-                                      <td>5</td>
-                                  </tr>
-                
-                            </table> --}}
+
             
                         </div>
             

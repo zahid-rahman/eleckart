@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\passwordValidationCustomerRequest;
+use Illuminate\Support\Facades\Hash;
 
-class vendorBrandController extends Controller
+class ProfileSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +17,46 @@ class vendorBrandController extends Controller
      */
     public function index()
     {
-        //
-        return view('vendor.brand');
+        $customer = DB::table('users')->where('id',Auth::user()->id)->get();
+
+        return view('Profile.profile_setting')->with('customer',$customer);
+    }
+
+    public function updatePhone(Request $request, $id) {
+        $phone = [
+            'phone_number'=>$request->phone_number
+        ];
+
+        DB::table('customers')->where('id','=',$id)->update($phone);
+        DB::table('users')->where('id','=',$id)->update($phone);
+
+        return redirect()->back();
+    }
+
+    public function updateAddress(Request $request, $id) {
+        $address = [
+            'address'=>$request->address
+        ];
+
+        DB::table('customers')->where('id','=',$id)->update($address);
+        DB::table('users')->where('id','=',$id)->update($address);
+
+        return redirect()->back();
+    }
+
+    public function updatePassword(passwordValidationCustomerRequest $request, $id) {
+        $data = [
+            'password'=>Hash::make($request->new_password)
+        ];
+
+        DB::table('customers')->where('id',$id)->update($data);
+
+        DB::table('users')->where('id',$id)->update($data);
+
+        //  return redirect()->route('vendor.profile.setting',['id'=>$id]);
+
+        Auth::logout();
+        return redirect()->route('homepage');
 
     }
 
